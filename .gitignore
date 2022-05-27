@@ -30,3 +30,14 @@
 *.exe
 *.out
 *.app
+
+# VS
+*.sln
+*.csproj
+
+# dir
+/Library
+/logs
+/Packages
+/Temp
+/UserSettings
