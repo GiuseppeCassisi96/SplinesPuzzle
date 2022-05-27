@@ -8,19 +8,23 @@ using UnityEngine;
 public class SplinesCreation : MonoBehaviour
 {
     #region private var
-    List<float> _knotsVector = new List<float>();
     LineRenderer _line;
     List<Vector3> positions = new List<Vector3>();
     Vector3 tempVector;
     int _intervalLenght;
-    int _gradeSpline = 3;
     #endregion
 
     #region SerializeField var
-
     [SerializeField]
     List<Transform> controlPoints = new List<Transform>();
+    [SerializeField]
+    int _gradeSpline = 3;
     #endregion
+
+    #region public var
+    [HideInInspector]
+    public List<float> _knotsVector = new List<float>();
+    #endregion 
 
     #region Unity methods
     private void Awake()
@@ -31,11 +35,11 @@ public class SplinesCreation : MonoBehaviour
         //il primo punto di controllo e l'ultimo 
         for (int i = 0; i < knotsNum; i++)
         {
-            if (i <= 3)
+            if (i <= _gradeSpline) //Estremo sinistro vettore nodi
             {
                 _knotsVector.Add(0);
             }
-            else if (i >= knotsNum - 4)
+            else if (i >= knotsNum - (_gradeSpline + 1)) //Estremo destro vettore nodi
             {
                 _knotsVector.Add(n + 1);
             }

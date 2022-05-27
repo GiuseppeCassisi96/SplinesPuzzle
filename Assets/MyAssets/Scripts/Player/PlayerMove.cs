@@ -26,7 +26,7 @@ public class PlayerMove : MonoBehaviour
     private void Awake()
     {
         _tr = GetComponent<Transform>();
-        _cameraTransform = transform.GetChild(0);
+        _cameraTransform = transform.Find("Main Camera");
         _playerBody = GetComponent<Rigidbody>();
         ray = new Ray(_tr.position, -_tr.up * 1.5f);
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
