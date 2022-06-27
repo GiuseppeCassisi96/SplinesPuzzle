@@ -4,7 +4,6 @@ using UnityEngine;
 
 
 
-
 public class SplinesCreation : MonoBehaviour
 {
     #region private var
@@ -12,58 +11,62 @@ public class SplinesCreation : MonoBehaviour
     List<Vector3> positions = new List<Vector3>();
     Vector3 tempVector;
     int _intervalLenght;
+    int index = 0;
     #endregion
 
     #region SerializeField var
     [SerializeField]
     List<Transform> controlPoints = new List<Transform>();
     [SerializeField]
-    int _gradeSpline = 3;
+    int multiplicity = 2;
+    [SerializeField]
+    float quantization = 0.1f;
+    [SerializeField]
+    GameManager gameManager;
     #endregion
 
     #region public var
-    [HideInInspector]
-    public List<float> _knotsVector = new List<float>();
+    public List<float> knots = new List<float>();
     #endregion 
 
     #region Unity methods
     private void Awake()
     {
-        int knotsNum = controlPoints.Count + _gradeSpline + 1;
+        int knotsNum = controlPoints.Count + GameManager.SPLINE_GRADE + 1;
         int n = 0;
         //Il primo e l'ultimo punto hanno molteplicità 4 con lo scopo di far passare la curva esattamente per 
         //il primo punto di controllo e l'ultimo 
         for (int i = 0; i < knotsNum; i++)
         {
-            if (i <= _gradeSpline) //Estremo sinistro vettore nodi
+            if (i < multiplicity) //Estremo sinistro vettore nodi
             {
-                _knotsVector.Add(0);
+                knots.Add(0);
             }
-            else if (i >= knotsNum - (_gradeSpline + 1)) //Estremo destro vettore nodi
+            else if (i >= knotsNum - (multiplicity)) //Estremo destro vettore nodi
             {
-                _knotsVector.Add(n + 1);
+                knots.Add(knotsNum);
             }
             else
             {
-                _knotsVector.Add(i);
+                knots.Add(i);
                 n = i;
             }
-            Debug.Log("NODE: " + _knotsVector[i]);
         }
-        int index = 0;
-        for (float t = _knotsVector[0]; t < _knotsVector[_knotsVector.Count - 1]; t += 0.2f)
+       
+        for (float t = knots[0]; t < knots[knots.Count - 1]; t += quantization)
         {
             index++;
         }
         _intervalLenght = index;
         _line = GetComponent<LineRenderer>();
-        _line.positionCount = _intervalLenght;
         tempVector = Vector3.zero;
+        CreateCurve();
 
     }
 
     private void Update()
     {
+        if(gameManager.pointIsMoving)
         CreateCurve();
     }
 
@@ -71,7 +74,7 @@ public class SplinesCreation : MonoBehaviour
 
     #region User define methods
 
-    float DeBoor(float t, int i, int k)
+    float DeBoorCox(float t, int i, int k)
     {
         if (k == 0)
         {
@@ -87,13 +90,15 @@ public class SplinesCreation : MonoBehaviour
         else
         {
             float result = 0.0f;
-            if (Knot(i + k) - Knot(i) != 0)
+            if (Knot(i + k) - Knot(i) != 0)//Per evitare casi di indeterminazione
             {
-                result += ((t - Knot(i)) / (Knot(i + k) - Knot(i))) * DeBoor(t, i, k - 1);
+                float first = (t - Knot(i)) / (Knot(i + k) - Knot(i)) * DeBoorCox(t, i, k - 1);
+                result += first;
             }
-            if (Knot(i + k + 1) - Knot(i + 1) != 0)
+            if (Knot(i + k + 1) - Knot(i + 1) != 0)//Per evitare casi di indeterminazione
             {
-                result += ((Knot(i + k + 1) - t) / (Knot(i + k + 1) - Knot(i + 1))) * DeBoor(t, i + 1, k - 1);
+                float second = (Knot(i + k + 1) - t) / (Knot(i + k + 1) - Knot(i + 1)) * DeBoorCox(t, i + 1, k - 1);
+                result += second;
             }
             return result;
         }
@@ -101,26 +106,23 @@ public class SplinesCreation : MonoBehaviour
 
     void CreateCurve()
     {
-        if (controlPoints.Count >= _gradeSpline)
+        for (float t = knots[0] + quantization; t <= knots[knots.Count - 1]; t += quantization)
         {
-            for (float t = _knotsVector[0]; t < _knotsVector[_knotsVector.Count - 1]; t += 0.2f)
+            tempVector = Vector3.zero;
+            for (int i = 0; i < controlPoints.Count; i++)
             {
-                tempVector = Vector3.zero;
-                for (int i = 0; i < controlPoints.Count; i++)
-                {
-                    float weightForControl = DeBoor(t, i, _gradeSpline);
-                    tempVector += weightForControl * controlPoints[i].position;
-                }
-                positions.Add(tempVector);
+                tempVector += DeBoorCox(t, i, GameManager.SPLINE_GRADE) * controlPoints[i].position;
             }
-            _line.SetPositions(positions.ToArray());
-            positions.Clear();
+            positions.Add(tempVector);
         }
+        _line.positionCount = positions.Count;
+        _line.SetPositions(positions.ToArray());
+        positions.Clear();
     }
 
     float Knot(int index)
     {
-        return _knotsVector[index];
+        return knots[index];
     }
     #endregion
 

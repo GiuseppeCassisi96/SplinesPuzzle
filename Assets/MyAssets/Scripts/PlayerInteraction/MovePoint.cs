@@ -57,10 +57,12 @@ public class MovePoint : MonoBehaviour
         if (!isInsideTheInterval)
         {
             _renderer.material.color = Color.white;
+            _gameManager.pointIsMoving = false;
         }
         else
         {
             _renderer.material.color = Color.green;
+            _gameManager.pointIsMoving = false;
         }
     }
 
@@ -72,11 +74,13 @@ public class MovePoint : MonoBehaviour
             _renderer.material.color = Color.red;
             _tr.Translate((Vector3.right * _gameManager.xAxeMouse +
             Vector3.up * _gameManager.yAxeMouse) * Time.deltaTime * _gameManager.pointMovementSpeed);
+            _gameManager.pointIsMoving = true;
         }
         else
         {
             if(!isInsideTheInterval)
             {
+                _gameManager.pointIsMoving = false;
                 _renderer.material.color = Color.green;
                 isInsideTheInterval = true;
                 addingPoint.Invoke();
