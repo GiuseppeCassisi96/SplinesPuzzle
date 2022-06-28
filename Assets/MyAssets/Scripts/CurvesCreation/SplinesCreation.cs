@@ -116,6 +116,18 @@ public class SplinesCreation : MonoBehaviour
             positions.Add(tempVector);
         }
         _line.positionCount = positions.Count;
+        if(multiplicity < GameManager.SPLINE_GRADE + 1)
+        {
+            //Post processing
+            for (int i = 0; i < 22; i++)
+            {
+                positions[i] = positions[22];
+            }
+            for (int i = positions.Count - 23; i < positions.Count; i++)
+            {
+                positions[i] = positions[positions.Count - 23];
+            }
+        }     
         _line.SetPositions(positions.ToArray());
         positions.Clear();
     }

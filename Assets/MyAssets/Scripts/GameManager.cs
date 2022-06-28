@@ -2,12 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum LevelType
+{
+    Bezier,
+    Spline
+}
+
 public class GameManager : MonoBehaviour
 {
     public static int SPLINE_GRADE = 3;
 
     #region private var
     int n = 0;
+    LevelType levelType;
+    LevelEvaluation levelEvaluation;
     #endregion
 
     #region Serialize Field
@@ -15,6 +23,8 @@ public class GameManager : MonoBehaviour
     GameObject portal;
     [SerializeField]
     SplinesCreation curve;
+    [SerializeField]
+    ShowGameInfo gameInfo;
     #endregion
 
     #region public var
@@ -28,22 +38,20 @@ public class GameManager : MonoBehaviour
     public bool mouseIsLock = true;
     [HideInInspector]
     public bool pointIsMoving = false;
+    [HideInInspector]
+    public bool KnotsValueIsEquals = false;
     #endregion
-
-    private void OnEnable()
-    {
-        MovePoint.addingPoint += AddingPoint;
-    }
-
-    private void OnDisable()
-    {
-        MovePoint.addingPoint -= AddingPoint;
-    }
 
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        if(levelType == LevelType.Spline)
+        {
+            gameInfo.ShowKnotsValue();
+        }
+        levelEvaluation = GetComponent<LevelEvaluation>();
+        
     }
 
     void MouseLocks()
@@ -78,6 +86,7 @@ public class GameManager : MonoBehaviour
 
     public void AddingPoint()
     {
+        Debug.Log("Punto in più");
         n++;
         if(n == numberOfPoints)
         {
@@ -87,16 +96,54 @@ public class GameManager : MonoBehaviour
 
     public void ChangeKnotsValue(int index, float value)
     {
-        if((value >= curve.knots[index - 1]) 
+        if(value < 0)
+        {
+            return;
+        }
+
+
+        if((index > 0) && (index < curve.knots.Count - 1))
+        {
+            if ((value >= curve.knots[index - 1])
             && (value <= curve.knots[index + 1]))
-        {
-            curve.knots[index] = value;
-            pointIsMoving = true;
+            {
+                curve.knots[index] = value;
+                pointIsMoving = true;
+                gameInfo.ShowKnotsValue();
+            }
+            else
+            {
+                gameInfo.ValueNotValid();
+            }
         }
-        else
+        else if(index == 0)
         {
-            Debug.LogWarning("Value not valid");
+            if (value <= curve.knots[index + 1])
+            {
+                curve.knots[index] = value;
+                pointIsMoving = true;
+                gameInfo.ShowKnotsValue();
+            }
+            else
+            {
+                gameInfo.ValueNotValid();
+            }
         }
+        else if (index == curve.knots.Count - 1)
+        {
+            if (value >= curve.knots[index - 1])
+            {
+                curve.knots[index] = value;
+                pointIsMoving = true;
+                gameInfo.ShowKnotsValue();
+            }
+            else
+            {
+                gameInfo.ValueNotValid();
+            }
+        }
+        levelEvaluation.ControlKnotsValue();
+        
     }
 
     

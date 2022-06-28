@@ -1,0 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+public class ShowGameInfo : MonoBehaviour
+{
+    [SerializeField]
+    SplinesCreation curve;
+    [SerializeField]
+    Text infoText;
+
+    private void Awake()
+    {
+        
+    }
+
+    public void ShowKnotsValue()
+    {
+        infoText.text = infoText.text + "Knots value:\n";
+        for(int i = 0; i < curve.knots.Count; i++)
+        {
+            infoText.text = infoText.text + curve.knots[i] + " ";
+        }
+        infoText.text = infoText.text + "\n";
+    }
+
+    public void ValueNotValid()
+    {
+        infoText.text = infoText.text + "Value not valid !\n";
+    }
+}

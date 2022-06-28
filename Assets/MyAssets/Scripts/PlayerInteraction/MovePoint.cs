@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class MovePoint : MonoBehaviour
 {
-    public static event Action addingPoint;
-
     Transform _tr;
     Ray _ray;
     Renderer _renderer;
@@ -15,8 +13,8 @@ public class MovePoint : MonoBehaviour
     float offsetEval;
     bool isInsideTheInterval;
 
-    [SerializeField]
-    Vector2 desiredPosition;
+    
+    LevelEvaluation levelEvaluation;
 
     private void Awake()
     {
@@ -25,6 +23,7 @@ public class MovePoint : MonoBehaviour
         _newPointPosition = Vector2.zero;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         offsetEval = _gameManager.tollerance;
+        levelEvaluation = GetComponent<LevelEvaluation>();
     }
 
     private void OnMouseEnter()
@@ -69,7 +68,7 @@ public class MovePoint : MonoBehaviour
     private void OnMouseDrag()
     {        
 
-        if(!curveEval())
+        if(!levelEvaluation.ControlPointEval())
         {
             _renderer.material.color = Color.red;
             _tr.Translate((Vector3.right * _gameManager.xAxeMouse +
@@ -83,21 +82,12 @@ public class MovePoint : MonoBehaviour
                 _gameManager.pointIsMoving = false;
                 _renderer.material.color = Color.green;
                 isInsideTheInterval = true;
-                addingPoint.Invoke();
+                _gameManager.AddingPoint();
             }
             
         }
 
         
-    }
-
-    bool curveEval()
-    {
-        bool xSide = (_tr.localPosition.x >= (desiredPosition.x - offsetEval)) && 
-            (_tr.localPosition.x <= (desiredPosition.x + offsetEval));
-        bool ySide = (_tr.localPosition.y >= (desiredPosition.y - offsetEval)) && 
-            (_tr.localPosition.y <= (desiredPosition.y + offsetEval));
-        return xSide && ySide;
     }
 
 
