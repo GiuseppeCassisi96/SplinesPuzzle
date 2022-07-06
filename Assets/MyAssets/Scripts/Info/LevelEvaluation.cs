@@ -11,7 +11,7 @@ public class LevelEvaluation : MonoBehaviour
     [SerializeField]
     SplinesCreation CurveB, CurveA;
 
-   public Vector2 desiredPosition;
+   public Vector3 desiredPosition;
 
     private void Awake()
     {
@@ -30,9 +30,9 @@ public class LevelEvaluation : MonoBehaviour
 
     public bool ControlKnotsValue()
     {
-        for(int i = 0; i < CurveB.knots.Count; i++)
+        for(int i = 0; i < CurveB.knots.nodes.Count; i++)
         {
-            if(CurveA.knots[i] != CurveB.knots[i])
+            if(CurveA.knots.nodes[i] != CurveB.knots.nodes[i])
             {
                 return false;
             }

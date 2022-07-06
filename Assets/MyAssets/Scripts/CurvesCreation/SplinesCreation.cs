@@ -26,12 +26,13 @@ public class SplinesCreation : MonoBehaviour
     #endregion
 
     #region public var
-    public List<float> knots = new List<float>();
+    public KnotsVector knots;
     #endregion 
 
     #region Unity methods
     private void Awake()
     {
+        knots = new KnotsVector();
         int knotsNum = controlPoints.Count + GameManager.SPLINE_GRADE + 1;
         int n = 0;
         //Il primo e l'ultimo punto hanno molteplicità 4 con lo scopo di far passare la curva esattamente per 
@@ -53,7 +54,7 @@ public class SplinesCreation : MonoBehaviour
             }
         }
        
-        for (float t = knots[0]; t < knots[knots.Count - 1]; t += quantization)
+        for (float t = knots.nodes[0]; t < knots.nodes[knots.nodes.Count - 1]; t += quantization)
         {
             index++;
         }
@@ -106,7 +107,7 @@ public class SplinesCreation : MonoBehaviour
 
     void CreateCurve()
     {
-        for (float t = knots[0] + quantization; t <= knots[knots.Count - 1]; t += quantization)
+        for (float t = knots.nodes[0]; t < knots.nodes[knots.nodes.Count - 1]; t += quantization)
         {
             tempVector = Vector3.zero;
             for (int i = 0; i < controlPoints.Count; i++)
@@ -134,7 +135,7 @@ public class SplinesCreation : MonoBehaviour
 
     float Knot(int index)
     {
-        return knots[index];
+        return knots.nodes[index];
     }
     #endregion
 

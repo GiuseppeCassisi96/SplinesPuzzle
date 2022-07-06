@@ -102,12 +102,12 @@ public class GameManager : MonoBehaviour
         }
 
 
-        if((index > 0) && (index < curve.knots.Count - 1))
+        if((index > 0) && (index < curve.knots.nodes.Count - 1))
         {
-            if ((value >= curve.knots[index - 1])
-            && (value <= curve.knots[index + 1]))
+            if ((value >= curve.knots.nodes[index - 1])
+            && (value <= curve.knots.nodes[index + 1]))
             {
-                curve.knots[index] = value;
+                curve.knots.Substituite(value, index);
                 pointIsMoving = true;
                 gameInfo.ShowKnotsValue();
             }
@@ -118,9 +118,9 @@ public class GameManager : MonoBehaviour
         }
         else if(index == 0)
         {
-            if (value <= curve.knots[index + 1])
+            if (value <= curve.knots.nodes[index + 1])
             {
-                curve.knots[index] = value;
+                curve.knots.Substituite(value, index);
                 pointIsMoving = true;
                 gameInfo.ShowKnotsValue();
             }
@@ -129,11 +129,11 @@ public class GameManager : MonoBehaviour
                 gameInfo.ValueNotValid();
             }
         }
-        else if (index == curve.knots.Count - 1)
+        else if (index == curve.knots.nodes.Count - 1)
         {
-            if (value >= curve.knots[index - 1])
+            if (value >= curve.knots.nodes[index - 1])
             {
-                curve.knots[index] = value;
+                curve.knots.Substituite(value, index);
                 pointIsMoving = true;
                 gameInfo.ShowKnotsValue();
             }

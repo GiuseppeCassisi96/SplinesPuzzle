@@ -17,9 +17,9 @@ public class ShowGameInfo : MonoBehaviour
     public void ShowKnotsValue()
     {
         infoText.text = infoText.text + "Knots value:\n";
-        for(int i = 0; i < curve.knots.Count; i++)
+        for(int i = 0; i < curve.knots.nodes.Count; i++)
         {
-            infoText.text = infoText.text + curve.knots[i] + " ";
+            infoText.text = infoText.text + curve.knots.nodes[i] + " ";
         }
         infoText.text = infoText.text + "\n";
     }
