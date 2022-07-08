@@ -23,6 +23,8 @@ public class SplinesCreation : MonoBehaviour
     float quantization = 0.1f;
     [SerializeField]
     GameManager gameManager;
+    [SerializeField]
+    int cuttingIndex = 20;
     #endregion
 
     #region public var
@@ -117,18 +119,24 @@ public class SplinesCreation : MonoBehaviour
             positions.Add(tempVector);
         }
         _line.positionCount = positions.Count;
-        if(multiplicity < GameManager.SPLINE_GRADE + 1)
+        if(knots.multiplicityDict[knots.nodes[0]] < GameManager.SPLINE_GRADE + 1)
         {
-            //Post processing
-            for (int i = 0; i < 22; i++)
+            for (int i = 0; i < cuttingIndex; i++)
             {
-                positions[i] = positions[22];
-            }
-            for (int i = positions.Count - 23; i < positions.Count; i++)
+                positions[i] = positions[cuttingIndex];
+            } 
+        }
+
+        if (knots.multiplicityDict[knots.nodes[knots.nodes.Count - 1]] < GameManager.SPLINE_GRADE + 1)
+        {
+            for (int i = positions.Count - cuttingIndex; i < positions.Count; i++)
             {
-                positions[i] = positions[positions.Count - 23];
+                positions[i] = positions[positions.Count - cuttingIndex];
             }
-        }     
+        }
+        //Post processing
+        
+            
         _line.SetPositions(positions.ToArray());
         positions.Clear();
     }

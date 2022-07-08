@@ -4,8 +4,19 @@ using UnityEngine;
 
 public class KnotsVector
 {
-    public List<float> nodes = new List<float>();
-    Dictionary<float, int> multiplicityDict = new Dictionary<float, int>();
+    public List<float> nodes
+    {
+        get => _nodes;
+    }
+
+    public Dictionary<float, int> multiplicityDict
+    {
+        get => _multiplicityDict;
+    }
+
+
+    List<float> _nodes = new List<float>();
+    Dictionary<float, int> _multiplicityDict = new Dictionary<float, int>();
 
     public void Add(float value)
     {
@@ -27,6 +38,7 @@ public class KnotsVector
         float oldValue = nodes[index];
         if(value != oldValue)
         {
+            List<float> keys = new List<float>(multiplicityDict.Keys);
             if (multiplicityDict[oldValue] == 1)
             {
                 multiplicityDict.Remove(oldValue);
@@ -34,6 +46,15 @@ public class KnotsVector
             else if (multiplicityDict[oldValue] > 1)
             {
                 multiplicityDict[oldValue]--;
+            }
+
+            if(keys.Contains(value))
+            {
+                multiplicityDict[value]++;
+            }
+            else
+            {
+                multiplicityDict.Add(value, 1);
             }
             nodes[index] = value;
         }
