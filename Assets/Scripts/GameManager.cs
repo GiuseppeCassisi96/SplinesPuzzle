@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool mouseIsLock = true;
     [HideInInspector]
-    public bool pointIsMoving = false;
+    public bool isInteractionWithCurve = false;
     [HideInInspector]
     public bool KnotsValueIsEquals = false;
     public LevelType levelType;
@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
             && (value <= curveA.knots.nodes[index + 1]))
             {
                 curveA.knots.Substituite(value, index);
-                pointIsMoving = true;
+                isInteractionWithCurve = true;
                 gameInfo.ShowKnotsValue();
             }
             else
@@ -121,7 +121,7 @@ public class GameManager : MonoBehaviour
             if (value <= curveA.knots.nodes[index + 1])
             {
                 curveA.knots.Substituite(value, index);
-                pointIsMoving = true;
+                isInteractionWithCurve = true;
                 gameInfo.ShowKnotsValue();
             }
             else
@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
             if (value >= curveA.knots.nodes[index - 1])
             {
                 curveA.knots.Substituite(value, index);
-                pointIsMoving = true;
+                isInteractionWithCurve = true;
                 gameInfo.ShowKnotsValue();
             }
             else

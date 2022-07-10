@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 795858904672171450}
   - component: {fileID: 795858904672171447}
   - component: {fileID: 8610479429880568434}
+  - component: {fileID: 2373178214185312126}
   m_Layer: 0
   m_Name: P1
   m_TagString: Untagged
@@ -122,6 +123,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desiredPosition: {x: 0, y: 0, z: 0}
+  isMoving: 0
+--- !u!114 &2373178214185312126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795858904672171448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8e64fa1fb798f46befa94221d163e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeParamName: particlesNumber
+  pointAuraVFX: {fileID: 0}
 --- !u!1 &795858904744646101
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,6 +152,7 @@ GameObject:
   - component: {fileID: 795858904744646103}
   - component: {fileID: 795858904744646096}
   - component: {fileID: 6985663207488986643}
+  - component: {fileID: 8189032939773049992}
   m_Layer: 0
   m_Name: P4
   m_TagString: Untagged
@@ -244,6 +261,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desiredPosition: {x: 0, y: 0, z: 0}
+  isMoving: 0
+--- !u!114 &8189032939773049992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795858904744646101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8e64fa1fb798f46befa94221d163e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeParamName: particlesNumber
+  pointAuraVFX: {fileID: 0}
 --- !u!1 &795858905512083999
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,6 +290,7 @@ GameObject:
   - component: {fileID: 795858905512083993}
   - component: {fileID: 795858905512083994}
   - component: {fileID: 656555760907144856}
+  - component: {fileID: 4855371528983966521}
   m_Layer: 0
   m_Name: P2
   m_TagString: Untagged
@@ -366,6 +399,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desiredPosition: {x: 0, y: 0, z: 0}
+  isMoving: 0
+--- !u!114 &4855371528983966521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795858905512083999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8e64fa1fb798f46befa94221d163e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeParamName: particlesNumber
+  pointAuraVFX: {fileID: 0}
 --- !u!1 &795858905521841659
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,6 +472,7 @@ MonoBehaviour:
   multiplicity: 2
   quantization: 0.1
   gameManager: {fileID: 0}
+  cuttingIndex: 20
 --- !u!120 &795858905521841652
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -536,6 +585,7 @@ GameObject:
   - component: {fileID: 795858905959704146}
   - component: {fileID: 795858905959704143}
   - component: {fileID: 2972400857363586377}
+  - component: {fileID: 6053003458437567004}
   m_Layer: 0
   m_Name: P0
   m_TagString: Untagged
@@ -644,6 +694,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desiredPosition: {x: 0, y: 0, z: 0}
+  isMoving: 0
+--- !u!114 &6053003458437567004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795858905959704144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8e64fa1fb798f46befa94221d163e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeParamName: particlesNumber
+  pointAuraVFX: {fileID: 0}
 --- !u!1 &795858906002666957
 GameObject:
   m_ObjectHideFlags: 0
@@ -658,6 +723,7 @@ GameObject:
   - component: {fileID: 795858906002666959}
   - component: {fileID: 795858906002666952}
   - component: {fileID: 7132412787039598073}
+  - component: {fileID: 4752631146939734658}
   m_Layer: 0
   m_Name: P3
   m_TagString: Untagged
@@ -766,3 +832,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desiredPosition: {x: 0, y: 0, z: 0}
+  isMoving: 0
+--- !u!114 &4752631146939734658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795858906002666957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8e64fa1fb798f46befa94221d163e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sizeParamName: particlesNumber
+  pointAuraVFX: {fileID: 0}

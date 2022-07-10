@@ -69,7 +69,7 @@ public class SplinesCreation : MonoBehaviour
 
     private void Update()
     {
-        if(gameManager.pointIsMoving)
+        if(gameManager.isInteractionWithCurve)
         CreateCurve();
     }
 

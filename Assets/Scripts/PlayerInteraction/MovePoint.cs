@@ -14,7 +14,7 @@ public class MovePoint : MonoBehaviour
     bool isInsideTheInterval;
 
     
-    PointInfo levelEvaluation;
+    PointInfo pointInfo;
 
     private void Awake()
     {
@@ -23,7 +23,7 @@ public class MovePoint : MonoBehaviour
         _newPointPosition = Vector2.zero;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         offsetEval = _gameManager.tollerance;
-        levelEvaluation = GetComponent<PointInfo>();
+        pointInfo = GetComponent<PointInfo>();
     }
 
     private void OnMouseEnter()
@@ -56,30 +56,34 @@ public class MovePoint : MonoBehaviour
         if (!isInsideTheInterval)
         {
             _renderer.material.color = Color.white;
-            _gameManager.pointIsMoving = false;
+            _gameManager.isInteractionWithCurve = false;
+            pointInfo.isMoving = false;
         }
         else
         {
             _renderer.material.color = Color.green;
-            _gameManager.pointIsMoving = false;
+            _gameManager.isInteractionWithCurve = false;
+            pointInfo.isMoving = false;
         }
     }
 
     private void OnMouseDrag()
     {        
 
-        if(!_gameManager.ControlPointEval(_tr, levelEvaluation.desiredPosition, _gameManager.tollerance))
+        if(!_gameManager.ControlPointEval(_tr, pointInfo.desiredPosition, _gameManager.tollerance))
         {
             _renderer.material.color = Color.red;
             _tr.Translate((Vector3.right * _gameManager.xAxeMouse +
             Vector3.up * _gameManager.yAxeMouse) * Time.deltaTime * _gameManager.pointMovementSpeed);
-            _gameManager.pointIsMoving = true;
+            _gameManager.isInteractionWithCurve = true;
+            pointInfo.isMoving = true;
         }
         else
         {
             if(!isInsideTheInterval)
             {
-                _gameManager.pointIsMoving = false;
+                _gameManager.isInteractionWithCurve = false;
+                pointInfo.isMoving = false;
                 _renderer.material.color = Color.green;
                 isInsideTheInterval = true;
                 _gameManager.AddingPoint();
