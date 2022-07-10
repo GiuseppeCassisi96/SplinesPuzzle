@@ -157,15 +157,16 @@ public class GameManager : MonoBehaviour
 
     bool ControlKnotsValue()
     {
-        for (int i = 0; i < curveB.knots.nodes.Count; i++)
+        int lenght = curveA.knots.nodes.Count;
+        if ((curveA.knots.multiplicityDict[curveA.knots.nodes[0]] == 
+            curveB.knots.multiplicityDict[curveB.knots.nodes[0]]) && 
+            (curveA.knots.multiplicityDict[curveA.knots.nodes[lenght-1]] ==
+            curveB.knots.multiplicityDict[curveB.knots.nodes[lenght-1]]))
         {
-            if (curveA.knots.nodes[i] != curveB.knots.nodes[i])
-            {
-                return false;
-            }
+            AddingPoint();
+            return true;
         }
-        AddingPoint();
-        return true;
+        return false;
     }
 
 
