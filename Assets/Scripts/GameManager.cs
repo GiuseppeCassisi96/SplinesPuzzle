@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     public float tollerance = 0.2f;
     public int numberOfPoints = 3;
     [HideInInspector]
-    public bool mouseIsLock = true;
+    public bool mouseIsLock = false;
     [HideInInspector]
     public bool isInteractionWithCurve = false;
     [HideInInspector]
@@ -42,16 +42,16 @@ public class GameManager : MonoBehaviour
     public LevelType levelType;
     #endregion
 
-    private void Awake()
+    private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Screen.fullScreen = true;
         Cursor.visible = false;
-        if(levelType == LevelType.Spline)
+        if (levelType == LevelType.Spline)
         {
             gameInfo.ShowKnotsValue();
         }
         levelEvaluation = GetComponent<PointInfo>();
-        
     }
 
     void MouseLocks()
@@ -60,11 +60,13 @@ public class GameManager : MonoBehaviour
         if(mouseIsLock)
         {
             Cursor.lockState = CursorLockMode.Locked;
+            Screen.fullScreen = true;
             Cursor.visible = false;
         }
         else
         {
             Cursor.lockState = CursorLockMode.None;
+            Screen.fullScreen = false;
             Cursor.visible = true;
         }
     }
@@ -72,10 +74,11 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         MouseRotation();
-        if(Input.GetKeyDown(KeyCode.L))
+        if(Input.GetMouseButtonDown(1))
         {
             MouseLocks();
         }
+
     }
 
     void MouseRotation()

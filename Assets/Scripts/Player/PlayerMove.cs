@@ -13,6 +13,7 @@ public class PlayerMove : MonoBehaviour
     Ray ray;
     float _rotationX;
     Vector3 checkerScale;
+    
 
 
     //SerializeField var
@@ -22,6 +23,19 @@ public class PlayerMove : MonoBehaviour
     LayerMask mask;
     [SerializeField]
     Transform checkereTr;
+
+    public static bool _isLook = false;
+
+    private void OnEnable()
+    {
+        EventManager.LookEvent += LookPoint;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.LookEvent -= LookPoint;
+    }
+
 
     private void Awake()
     {
@@ -54,11 +68,19 @@ public class PlayerMove : MonoBehaviour
         }
 
         //Rotation
-        _tr.Rotate(Vector3.up * _gameManager.xAxeMouse * rotationSpeed * Time.deltaTime);
-        _rotationX += Vector3.right.x * -_gameManager.yAxeMouse * rotationSpeed * Time.deltaTime;
-        _rotationX = Mathf.Clamp(_rotationX, -90, 80);
-        _cameraTransform.localRotation = Quaternion.Euler(_rotationX, 0, 0);
+        if(!_isLook)
+        {
+            _tr.Rotate(Vector3.up * _gameManager.xAxeMouse * rotationSpeed * Time.deltaTime);
+            _rotationX += Vector3.right.x * -_gameManager.yAxeMouse * rotationSpeed * Time.deltaTime;
+            _rotationX = Mathf.Clamp(_rotationX, -90, 80);
+            _cameraTransform.localRotation = Quaternion.Euler(_rotationX, 0, 0);
+        }
+    }
 
-        
+    void LookPoint(Transform tr)
+    {
+        Debug.Log("PIPPO");
+        _cameraTransform.LookAt(tr, Vector3.up);
+        _isLook = true;
     }
 }
