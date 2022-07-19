@@ -8,6 +8,7 @@ public class MovePoint : MonoBehaviour
     Transform _tr;
     Renderer _renderer;
     GameManager _gameManager;
+    ColorManager _colorManager;
     bool _isInsideTheInterval;
     PointInfo _pointInfo;
     int pointID;
@@ -21,6 +22,7 @@ public class MovePoint : MonoBehaviour
         _tr = GetComponent<Transform>();
         _renderer = GetComponent<Renderer>();
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _colorManager = GameObject.Find("ColorManager").GetComponent<ColorManager>();
         _pointInfo = GetComponent<PointInfo>();
     }
 
@@ -42,11 +44,11 @@ public class MovePoint : MonoBehaviour
             if (!_isInsideTheInterval)
             {
                 InteractionDrag();
-                _renderer.material.color = Color.red;
+                
             }
             else
             {
-                _renderer.material.color = Color.green;
+                _colorManager.SetColor(_renderer, Color.green);
             }
         }
     }
@@ -57,11 +59,11 @@ public class MovePoint : MonoBehaviour
         {
             if (!_isInsideTheInterval)
             {
-                _renderer.material.color = Color.white;
+                _colorManager.SetColor(_renderer, Color.white);
             }
             else
             {
-                _renderer.material.color = Color.green;
+                _colorManager.SetColor(_renderer, Color.green);
             }
         }
     }
@@ -72,11 +74,11 @@ public class MovePoint : MonoBehaviour
         {
             if (!_gameManager.ControlPointEval(_tr, _pointInfo.desiredPosition, _gameManager.tollerance))
             {
-                _renderer.material.color = Color.red;
                 _tr.Translate((Vector3.right * _gameManager.xAxeMouse * speed +
                 Vector3.up * _gameManager.yAxeMouse * speed) * Time.deltaTime * _gameManager.pointMovementSpeed);
                 _gameManager.isInteractionWithCurve = true;
                 _pointInfo.isMoving = true;
+                EventManager.LookAction(_tr);
             }
             else
             {
@@ -84,14 +86,16 @@ public class MovePoint : MonoBehaviour
                 {
                     _gameManager.isInteractionWithCurve = false;
                     _pointInfo.isMoving = false;
-                    _renderer.material.color = Color.green;
+                    _colorManager.SetColor(_renderer, Color.green);
                     _isInsideTheInterval = true;
                     _gameManager.AddingPoint();
+                    PlayerMove._isLook = false;
                 }
             }
         }
         else
         {
+            PlayerMove._isLook = false;
             _gameManager.isInteractionWithCurve = false;
             _pointInfo.isMoving = false;
         }
