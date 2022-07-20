@@ -12,15 +12,18 @@ public class MovePoint : MonoBehaviour
     bool _isInsideTheInterval;
     PointInfo _pointInfo;
     int pointID;
+    ChangePointColor _pointColor;
 
     [SerializeField]
     float speed = 4.0f;
+
 
     private void Awake()
     {
         pointID = gameObject.GetInstanceID();
         _tr = GetComponent<Transform>();
         _renderer = GetComponent<Renderer>();
+        _pointColor = GetComponent<ChangePointColor>();
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _colorManager = GameObject.Find("ColorManager").GetComponent<ColorManager>();
         _pointInfo = GetComponent<PointInfo>();
@@ -44,7 +47,8 @@ public class MovePoint : MonoBehaviour
             if (!_isInsideTheInterval)
             {
                 InteractionDrag();
-                
+                _colorManager.SetColor(_renderer, _pointColor.pointColor);
+
             }
             else
             {
@@ -57,6 +61,7 @@ public class MovePoint : MonoBehaviour
     {
         if (pointID == triggerID)
         {
+            PlayerMove._isLook = false;
             if (!_isInsideTheInterval)
             {
                 _colorManager.SetColor(_renderer, Color.white);
@@ -78,19 +83,18 @@ public class MovePoint : MonoBehaviour
                 Vector3.up * _gameManager.yAxeMouse * speed) * Time.deltaTime * _gameManager.pointMovementSpeed);
                 _gameManager.isInteractionWithCurve = true;
                 _pointInfo.isMoving = true;
+                PlayerMove._isLook = true;
                 EventManager.LookAction(_tr);
+                Debug.Log("Move");
             }
             else
             {
-                if (!_isInsideTheInterval)
-                {
-                    _gameManager.isInteractionWithCurve = false;
-                    _pointInfo.isMoving = false;
-                    _colorManager.SetColor(_renderer, Color.green);
-                    _isInsideTheInterval = true;
-                    _gameManager.AddingPoint();
-                    PlayerMove._isLook = false;
-                }
+                PlayerMove._isLook = false;
+                _gameManager.isInteractionWithCurve = false;
+                _pointInfo.isMoving = false;
+                _colorManager.SetColor(_renderer, Color.green);
+                _isInsideTheInterval = true;
+                _gameManager.AddingPoint();
             }
         }
         else

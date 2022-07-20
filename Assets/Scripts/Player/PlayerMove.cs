@@ -75,12 +75,14 @@ public class PlayerMove : MonoBehaviour
             _rotationX = Mathf.Clamp(_rotationX, -90, 80);
             _cameraTransform.localRotation = Quaternion.Euler(_rotationX, 0, 0);
         }
+        else
+        {
+            Debug.Log("falso");
+        }
     }
 
     void LookPoint(Transform tr)
     {
-        Debug.Log("PIPPO");
         _cameraTransform.LookAt(tr, Vector3.up);
-        _isLook = true;
     }
 }

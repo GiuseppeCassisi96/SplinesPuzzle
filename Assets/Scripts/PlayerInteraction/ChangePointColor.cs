@@ -9,12 +9,16 @@ public class ChangePointColor : MonoBehaviour
     ColorManager _colorManager;
     Transform _tr;
     PointInfo _pointInfo;
+
+    [HideInInspector]
+    public Color pointColor;
     private void Awake()
     {
         _colorManager = GameObject.Find("ColorManager").GetComponent<ColorManager>();
         _renderer = GetComponent<Renderer>();
         _tr = GetComponent<Transform>();
         _pointInfo = GetComponent<PointInfo>();
+        pointColor = Color.blue;
     }
 
     private void Update()
@@ -23,7 +27,8 @@ public class ChangePointColor : MonoBehaviour
         {
             float distance = Vector2.Distance(_tr.localPosition, _pointInfo.desiredPosition);
             float value = Mathf.Clamp01(distance);
-            _colorManager.SetColor(_renderer, new Color(1 - value, 0, value));
+            pointColor = new Color(1 - value, 0, value);
+            _colorManager.SetColor(_renderer, pointColor);
         }
     }
 
