@@ -12,4 +12,14 @@ public class ChangeLevel : MonoBehaviour
     {
         SceneManager.LoadScene(nextScene);
     }
+
+    public void Change(int nextScene)
+    {
+        SceneManager.LoadScene(nextScene);
+    }
+
+    public void Change(string nextScene)
+    {
+        SceneManager.LoadScene(nextScene);
+    }
 }

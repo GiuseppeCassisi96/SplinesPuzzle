@@ -40,12 +40,12 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool KnotsValueIsEquals = false;
     public LevelType levelType;
+    public int mouseSensibility = 70;
     #endregion
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        Screen.fullScreen = true;
         Cursor.visible = false;
         if (levelType == LevelType.Spline)
         {
@@ -60,13 +60,11 @@ public class GameManager : MonoBehaviour
         if(mouseIsLock)
         {
             Cursor.lockState = CursorLockMode.Locked;
-            Screen.fullScreen = true;
             Cursor.visible = false;
         }
         else
         {
             Cursor.lockState = CursorLockMode.None;
-            Screen.fullScreen = false;
             Cursor.visible = true;
         }
     }
@@ -74,7 +72,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         MouseRotation();
-        if(Input.GetMouseButtonDown(1))
+        if(Input.GetKeyDown(KeyCode.L))
         {
             MouseLocks();
         }

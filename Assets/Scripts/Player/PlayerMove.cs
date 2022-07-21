@@ -70,8 +70,8 @@ public class PlayerMove : MonoBehaviour
         //Rotation
         if(!_isLook)
         {
-            _tr.Rotate(Vector3.up * _gameManager.xAxeMouse * rotationSpeed * Time.deltaTime);
-            _rotationX += Vector3.right.x * -_gameManager.yAxeMouse * rotationSpeed * Time.deltaTime;
+            _tr.Rotate(Vector3.up * _gameManager.xAxeMouse * _gameManager.mouseSensibility * Time.deltaTime);
+            _rotationX += Vector3.right.x * -_gameManager.yAxeMouse * _gameManager.mouseSensibility * Time.deltaTime;
             _rotationX = Mathf.Clamp(_rotationX, -90, 80);
             _cameraTransform.localRotation = Quaternion.Euler(_rotationX, 0, 0);
         }

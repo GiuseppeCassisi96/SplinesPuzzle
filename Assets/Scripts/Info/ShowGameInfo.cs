@@ -9,7 +9,7 @@ public class ShowGameInfo : MonoBehaviour
     [SerializeField]
     Text infoText;
 
-    private void Awake()
+    private void Start()
     {
         infoText.text = infoText.text + "Knots value:\n";
         for (int i = 0; i < curve.knots.nodes.Count; i++)
