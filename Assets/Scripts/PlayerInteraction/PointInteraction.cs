@@ -27,7 +27,7 @@ public class PointInteraction : MonoBehaviour
     {
         _ray.direction = cam.transform.forward * rayLenght;
         _ray.origin = _tr.position;
-        if(Physics.Raycast(_ray, out _hit, mask))
+        if(Physics.Raycast(_ray, out _hit, rayLenght, mask))
         {
             _triggerId = _hit.collider.gameObject.GetInstanceID();
             EventManager.EnterAction(_triggerId);
@@ -36,5 +36,6 @@ public class PointInteraction : MonoBehaviour
         {
             EventManager.ExitAction(_triggerId);
         }
+        
     }
 }

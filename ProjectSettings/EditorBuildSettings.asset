@@ -6,9 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/ProtoScenes/FirsteLevel/FirsteLevel.unity
-    guid: df8aa64513d7cbf4aa5dd9ffb0ce0847
+    path: Assets/Scenes/FinalGameScenes/MainMenu.unity
+    guid: e0cbce6625c39a24e86b899b1b210c9f
   - enabled: 1
-    path: Assets/Scenes/ProtoScenes/SecondLevel/SecondLevel.unity
-    guid: 67e01471fee0f9842bdd596399a6afcd
+    path: Assets/Scenes/FinalGameScenes/FirstBiome/Level1/Level1-1.unity
+    guid: 54382654f072f5b4da5d9b8ed3bc9d25
+  - enabled: 1
+    path: Assets/Scenes/FinalGameScenes/FirstBiome/Level2/Level1-2.unity
+    guid: 6e6b1e084cf1acf44942417dda0a915b
+  - enabled: 1
+    path: Assets/Scenes/FinalGameScenes/FirstBiome/Level3/Level1-3.unity
+    guid: 9723908a0a1e796488d5e65d4692b019
+  - enabled: 1
+    path: Assets/Scenes/FinalGameScenes/FirstBiome/Level4/Level1-4.unity
+    guid: 6089dd6898619174687008692ceee29d
   m_configObjects: {}
