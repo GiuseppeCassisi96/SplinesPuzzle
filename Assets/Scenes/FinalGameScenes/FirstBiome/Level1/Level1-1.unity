@@ -224,6 +224,10 @@ PrefabInstance:
       propertyPath: portal
       value: 
       objectReference: {fileID: 306859379}
+    - target: {fileID: 8312084592221940928, guid: 19f83ae7e0f910d41b7b8ebb0aaa5137, type: 3}
+      propertyPath: backgroundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 0af4c0ffa64da2c4dbf72894e31a2401, type: 3}
     - target: {fileID: 8312084592221940929, guid: 19f83ae7e0f910d41b7b8ebb0aaa5137, type: 3}
       propertyPath: m_Name
       value: GameManager

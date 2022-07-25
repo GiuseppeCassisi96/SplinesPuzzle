@@ -23,6 +23,8 @@ public class PlayerMove : MonoBehaviour
     LayerMask mask;
     [SerializeField]
     Transform checkereTr;
+    [SerializeField]
+    AudioClip jumpClip;
 
     public static bool _isLook = false;
 
@@ -59,6 +61,7 @@ public class PlayerMove : MonoBehaviour
         {
             _playerBody.AddForce(_tr.up * jumpForce, ForceMode.Impulse);
             _jumpCount--;
+            EventManager.PlaySoundSFXAction(jumpClip);
         }
         ray.origin = _tr.position;
         ray.direction = -_tr.up * 1.5f;

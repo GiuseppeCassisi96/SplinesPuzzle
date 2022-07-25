@@ -24,6 +24,10 @@ public class GameManager : MonoBehaviour
     SplinesCreation curveA, curveB;
     [SerializeField]
     ShowGameInfo gameInfo;
+    [SerializeField]
+    AudioClip backgroundClip, levelUnlock;
+    [SerializeField]
+    bool isMenuScene;
     #endregion
 
     #region public var
@@ -45,13 +49,18 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        if(!isMenuScene)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        
         if (levelType == LevelType.Spline)
         {
             gameInfo.ShowKnotsValue();
         }
         levelEvaluation = GetComponent<PointInfo>();
+        EventManager.PlaySoundAction(backgroundClip);
     }
 
     void MouseLocks()
@@ -72,7 +81,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         MouseRotation();
-        if(Input.GetKeyDown(KeyCode.L))
+        if(Input.GetKeyDown(KeyCode.L) && !isMenuScene)
         {
             MouseLocks();
         }
@@ -92,6 +101,7 @@ public class GameManager : MonoBehaviour
         if(n == numberOfPoints)
         {
             portal.SetActive(true);
+            EventManager.PlaySoundSFXAction(levelUnlock);
         }
     }
 
