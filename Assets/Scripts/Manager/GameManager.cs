@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     ShowGameInfo gameInfo;
     [SerializeField]
-    AudioClip backgroundClip;
+    AudioClip backgroundClip, levelUnlock;
     [SerializeField]
     bool isMenuScene;
     #endregion
@@ -101,6 +101,7 @@ public class GameManager : MonoBehaviour
         if(n == numberOfPoints)
         {
             portal.SetActive(true);
+            EventManager.PlaySoundSFXAction(levelUnlock);
         }
     }
 

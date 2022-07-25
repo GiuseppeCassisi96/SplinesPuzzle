@@ -9,6 +9,7 @@ public class EventManager : MonoBehaviour
     public static event Action<int> ExitEvent;
     public static event Action<Transform> LookEvent;
     public static event Action<AudioClip> playSoundEvent;
+    public static event Action<AudioClip> playSoundSFXEvent;
 
     public static void EnterAction(int triggerId)
     {
@@ -28,5 +29,10 @@ public class EventManager : MonoBehaviour
     public static void PlaySoundAction(AudioClip clip)
     {
         playSoundEvent.Invoke(clip);
+    }
+
+    public static void PlaySoundSFXAction(AudioClip clip)
+    {
+        playSoundSFXEvent.Invoke(clip);
     }
 }
