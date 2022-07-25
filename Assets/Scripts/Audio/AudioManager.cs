@@ -2,16 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
     AudioSource _audioSource;
     [SerializeField]
     bool isSFX = false;
+    [SerializeField]
+    Slider slider;
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
         DontDestroyOnLoad(this.gameObject);
+        _audioSource.volume = slider.value;
     }
     private void OnEnable()
     {
@@ -23,6 +27,12 @@ public class AudioManager : MonoBehaviour
     {
         EventManager.playSoundEvent -= PlayBackgroundSound;
         EventManager.playSoundSFXEvent -= PlaySFXSound;
+    }
+
+     
+    public void SetVolume(Slider slider)
+    {
+        _audioSource.volume = slider.value;
     }
 
 
