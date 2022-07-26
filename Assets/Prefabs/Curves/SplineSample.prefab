@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 795858904672171447}
   - component: {fileID: 8610479429880568434}
   - component: {fileID: 2373178214185312126}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: P1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f172dd827fc86514eb1a70d191ee4d1c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947a2bd0d6f6e0b45b6d6d80bf73594b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 4
 --- !u!114 &8610479429880568434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,8 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd8e64fa1fb798f46befa94221d163e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sizeParamName: particlesNumber
-  pointAuraVFX: {fileID: 0}
+  pointColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &795858904744646101
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 795858904744646096}
   - component: {fileID: 6985663207488986643}
   - component: {fileID: 8189032939773049992}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: P4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f172dd827fc86514eb1a70d191ee4d1c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -248,6 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947a2bd0d6f6e0b45b6d6d80bf73594b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 4
 --- !u!114 &6985663207488986643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,8 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd8e64fa1fb798f46befa94221d163e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sizeParamName: particlesNumber
-  pointAuraVFX: {fileID: 0}
+  pointColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &795858905512083999
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 795858905512083994}
   - component: {fileID: 656555760907144856}
   - component: {fileID: 4855371528983966521}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: P2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +339,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f172dd827fc86514eb1a70d191ee4d1c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -386,6 +386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947a2bd0d6f6e0b45b6d6d80bf73594b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 4
 --- !u!114 &656555760907144856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,8 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd8e64fa1fb798f46befa94221d163e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sizeParamName: particlesNumber
-  pointAuraVFX: {fileID: 0}
+  pointColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &795858905521841659
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,7 +586,7 @@ GameObject:
   - component: {fileID: 795858905959704143}
   - component: {fileID: 2972400857363586377}
   - component: {fileID: 6053003458437567004}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: P0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -634,7 +634,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f172dd827fc86514eb1a70d191ee4d1c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -681,6 +681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947a2bd0d6f6e0b45b6d6d80bf73594b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 4
 --- !u!114 &2972400857363586377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -707,8 +708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd8e64fa1fb798f46befa94221d163e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sizeParamName: particlesNumber
-  pointAuraVFX: {fileID: 0}
+  pointColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &795858906002666957
 GameObject:
   m_ObjectHideFlags: 0
@@ -724,7 +724,7 @@ GameObject:
   - component: {fileID: 795858906002666952}
   - component: {fileID: 7132412787039598073}
   - component: {fileID: 4752631146939734658}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: P3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -772,7 +772,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f172dd827fc86514eb1a70d191ee4d1c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -819,6 +819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947a2bd0d6f6e0b45b6d6d80bf73594b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 4
 --- !u!114 &7132412787039598073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -845,5 +846,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd8e64fa1fb798f46befa94221d163e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sizeParamName: particlesNumber
-  pointAuraVFX: {fileID: 0}
+  pointColor: {r: 0, g: 0, b: 0, a: 0}

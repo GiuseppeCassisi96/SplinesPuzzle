@@ -119,7 +119,8 @@ public class SplinesCreation : MonoBehaviour
             positions.Add(tempVector);
         }
         _line.positionCount = positions.Count;
-        if(knots.multiplicityDict[knots.nodes[0]] < GameManager.SPLINE_GRADE + 1)
+        //Post processing
+        if (knots.multiplicityDict[knots.nodes[0]] < GameManager.SPLINE_GRADE + 1)
         {
             for (int i = 0; i < cuttingIndex; i++)
             {
@@ -134,7 +135,7 @@ public class SplinesCreation : MonoBehaviour
                 positions[i] = positions[positions.Count - cuttingIndex];
             }
         }
-        //Post processing
+        
         
             
         _line.SetPositions(positions.ToArray());
