@@ -47,12 +47,17 @@ MonoBehaviour:
   curveA: {fileID: 0}
   curveB: {fileID: 0}
   gameInfo: {fileID: 0}
+  backgroundClip: {fileID: 0}
+  levelUnlock: {fileID: 0}
+  isMenuScene: 0
   CURVE_RESOLUTION: 50
   xAxeMouse: 0
   yAxeMouse: 0
-  pointMovementSpeed: 8
+  pointMovementSpeed: 4
   tollerance: 0.2
   numberOfPoints: 3
   mouseIsLock: 1
-  pointIsMoving: 0
+  isInteractionWithCurve: 0
   KnotsValueIsEquals: 0
+  levelType: 0
+  mouseSensibility: 60
