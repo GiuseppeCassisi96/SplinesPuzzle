@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FinalGameScenes/SecondBiome/Level1/Level2-1.unity
     guid: 4eea177c753d9c943b9f4c7cad82c8b4
+  - enabled: 1
+    path: Assets/Scenes/FinalGameScenes/SecondBiome/Level2/Level2-2.unity
+    guid: 6c5844b6bcd07c248947f8ad5f8e9a5d
   m_configObjects: {}
