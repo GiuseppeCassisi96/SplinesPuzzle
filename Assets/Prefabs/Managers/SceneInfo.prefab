@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8312084592221940929
+--- !u!1 &9156864223995227878
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,46 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8312084592221940931}
-  - component: {fileID: 8312084592221940928}
+  - component: {fileID: 9156864223995227876}
+  - component: {fileID: 9156864223995227879}
   m_Layer: 0
-  m_Name: GameManager
-  m_TagString: GameManager
+  m_Name: SceneInfo
+  m_TagString: SceneInfo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8312084592221940931
+--- !u!4 &9156864223995227876
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8312084592221940929}
+  m_GameObject: {fileID: 9156864223995227878}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30.11317, y: -12.173307, z: 22.697878}
+  m_LocalPosition: {x: 463.39804, y: 233.53253, z: 725.3468}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8312084592221940928
+--- !u!114 &9156864223995227879
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8312084592221940929}
+  m_GameObject: {fileID: 9156864223995227878}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ecce99fed5c28c41a26af09049570ff, type: 3}
+  m_Script: {fileID: 11500000, guid: ab14837b6a770a94096ba25f173e627d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bezierResolution: 50
-  xAxeMouse: 0
-  yAxeMouse: 0
-  pointMovementSpeed: 4
-  mouseIsLock: 1
-  isInteractionWithCurve: 0
-  KnotsValueIsEquals: 0
-  mouseSensibility: 60
+  info:
+    CurveA: {fileID: 0}
+    CurveB: {fileID: 0}
+    pointsToWin: 3
+    backgroundMusic: {fileID: 8300000, guid: f535b05e6a8764c4a936e4f9dce2bf29, type: 3}
+    levelUnlock: {fileID: 8300000, guid: eddd67fd9db3f6d4d8f1f1ea543e7b2b, type: 3}
+    levelType: 0
+    gameInfo: {fileID: 0}
+    portal: {fileID: 0}
+    tollerance: 0.2
+    bezierResolution: 50

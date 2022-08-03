@@ -75,7 +75,7 @@ public class MovePoint : MonoBehaviour
     {
         if(Input.GetMouseButton(0))
         {
-            if (!_gameManager.ControlPointEval(_tr, _pointInfo.desiredPosition, _gameManager.tollerance))
+            if (!_gameManager.ControlPointEval(_tr, _pointInfo.desiredPosition, _gameManager.Tollerance))
             {
                 _tr.Translate((Vector3.right * _gameManager.xAxeMouse +
                 Vector3.up * _gameManager.yAxeMouse) * Time.deltaTime * _gameManager.pointMovementSpeed);
@@ -83,7 +83,6 @@ public class MovePoint : MonoBehaviour
                 _pointInfo.isMoving = true;
                 PlayerMove._isLook = true;
                 EventManager.LookAction(_tr);
-                Debug.Log("Move");
             }
             else
             {

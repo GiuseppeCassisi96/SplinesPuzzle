@@ -1,87 +1,91 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public enum LevelType
-{
-    Bezier,
-    Spline
-}
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static int SPLINE_GRADE = 3;
 
     #region private var
-    int n = 0;
-    PointInfo levelEvaluation;
-    #endregion
-
-    #region Serialize Field
-    [SerializeField]
-    GameObject portal;
-    [SerializeField]
+    int numberOfPoints = 3;
+    SceneInfo sceneInfo;
     SplinesCreation curveA, curveB;
-    [SerializeField]
-    ShowGameInfo gameInfo;
-    [SerializeField]
+    GameObject portal;
     AudioClip backgroundClip, levelUnlock;
-    [SerializeField]
-    bool isMenuScene;
+    ShowGameInfo gameInfo;
+    float _tollerance = 0.2f;
+    public int _bezierResolution = 50;
     #endregion
 
     #region public var
     [Range(5, 100)]
-    public int CURVE_RESOLUTION = 50;
+    
+    [HideInInspector]
     public float xAxeMouse, yAxeMouse;
+    [HideInInspector]
     public float pointMovementSpeed = 8.0f;
-    public float tollerance = 0.2f;
-    public int numberOfPoints = 3;
     [HideInInspector]
     public bool mouseIsLock = false;
     [HideInInspector]
     public bool isInteractionWithCurve = false;
     [HideInInspector]
     public bool KnotsValueIsEquals = false;
-    public LevelType levelType;
     public int mouseSensibility = 70;
     #endregion
 
-    private void Start()
+    #region Properties
+    public float Tollerance
     {
-        if(!isMenuScene)
+        get
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            return _tollerance;
         }
-        
-        if (levelType == LevelType.Spline)
+
+        set
         {
-            gameInfo.ShowKnotsValue();
+            _tollerance = value;
         }
-        levelEvaluation = GetComponent<PointInfo>();
-        EventManager.PlaySoundAction(backgroundClip);
     }
 
-    void MouseLocks()
+    public int BezierResolution
     {
-        mouseIsLock = !mouseIsLock;
-        if(mouseIsLock)
+        get
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            return _bezierResolution;
         }
-        else
+
+        set
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            _bezierResolution = value;
         }
     }
+    #endregion
+
+   
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += IsSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= IsSceneLoaded;
+    }
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
+
+  
 
     private void Update()
     {
         MouseRotation();
-        if(Input.GetKeyDown(KeyCode.L) && !isMenuScene)
+        if(Input.GetKeyDown(KeyCode.L) && !(sceneInfo.GetInfo().levelType == LevelType.Menu))
         {
             MouseLocks();
         }
@@ -97,13 +101,71 @@ public class GameManager : MonoBehaviour
     public void AddingPoint()
     {
         Debug.Log("Punto in più");
-        n++;
-        if(n == numberOfPoints)
+        numberOfPoints++;
+        if(numberOfPoints == sceneInfo.GetInfo().pointsToWin)
         {
             portal.SetActive(true);
             EventManager.PlaySoundSFXAction(levelUnlock);
         }
     }
+
+    private void IsSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
+    {
+        sceneInfo = GameObject.FindGameObjectWithTag("SceneInfo").GetComponent<SceneInfo>();
+        numberOfPoints = 0;
+        if (sceneInfo.GetInfo().levelType == LevelType.Menu)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            backgroundClip = sceneInfo.GetInfo().backgroundMusic;
+        }
+        else if (sceneInfo.GetInfo().levelType == LevelType.Spline)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            gameInfo = sceneInfo.GetInfo().gameInfo;
+            gameInfo.ShowKnotsValue();
+
+            curveA = sceneInfo.GetInfo().CurveA;
+            curveB = sceneInfo.GetInfo().CurveB;
+
+            portal = sceneInfo.GetInfo().portal;
+            Tollerance = sceneInfo.GetInfo().tollerance;
+            backgroundClip = sceneInfo.GetInfo().backgroundMusic;
+            levelUnlock = sceneInfo.GetInfo().levelUnlock;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            portal = sceneInfo.GetInfo().portal;
+            Tollerance = sceneInfo.GetInfo().tollerance;
+            backgroundClip = sceneInfo.GetInfo().backgroundMusic;
+            levelUnlock = sceneInfo.GetInfo().levelUnlock;
+
+            BezierResolution = sceneInfo.GetInfo().bezierResolution;
+        }
+        EventManager.PlaySoundAction(backgroundClip);
+    }
+
+
+    void MouseLocks()
+    {
+        mouseIsLock = !mouseIsLock;
+        if (mouseIsLock)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+    }
+
 
     public void ChangeKnotsValue(int index, float value)
     {
@@ -169,15 +231,25 @@ public class GameManager : MonoBehaviour
     bool ControlKnotsValue()
     {
         int lenght = curveA.knots.nodes.Count;
-        if ((curveA.knots.multiplicityDict[curveA.knots.nodes[0]] == 
-            curveB.knots.multiplicityDict[curveB.knots.nodes[0]]) && 
-            (curveA.knots.multiplicityDict[curveA.knots.nodes[lenght-1]] ==
-            curveB.knots.multiplicityDict[curveB.knots.nodes[lenght-1]]))
-        {
+        bool mulEval = (curveA.knots.multiplicityDict[curveA.knots.nodes[0]] == curveB.knots.multiplicityDict[curveB.knots.nodes[0]]) &&
+            (curveA.knots.multiplicityDict[curveA.knots.nodes[lenght - 1]] == curveB.knots.multiplicityDict[curveB.knots.nodes[lenght - 1]]);
+        bool valueEval = (curveA.knots.nodes[0] == curveB.knots.nodes[0]) && (curveA.knots.nodes[lenght - 1] == curveB.knots.nodes[lenght - 1]);
+        if (mulEval && valueEval)
+        {  
             AddingPoint();
             return true;
         }
         return false;
+    }
+
+    public void ChangeMouseSensibility(Slider slider) 
+    {
+        mouseSensibility = (int)slider.value;
+    }
+
+    public void ChangePointSpeed(Slider slider)
+    {
+        pointMovementSpeed = (int)slider.value;
     }
 
 

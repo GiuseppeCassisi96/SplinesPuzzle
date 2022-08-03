@@ -21,7 +21,6 @@ public class SplinesCreation : MonoBehaviour
     int multiplicity = 2;
     [SerializeField]
     float quantization = 0.1f;
-    [SerializeField]
     GameManager gameManager;
     [SerializeField]
     int cuttingIndex = 20;
@@ -34,6 +33,7 @@ public class SplinesCreation : MonoBehaviour
     #region Unity methods
     private void Awake()
     {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         knots = new KnotsVector();
         int knotsNum = controlPoints.Count + GameManager.SPLINE_GRADE + 1;
         int n = 0;
