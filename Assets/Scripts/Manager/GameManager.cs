@@ -35,6 +35,9 @@ public class GameManager : MonoBehaviour
     public int mouseSensibility = 70;
     #endregion
 
+    [SerializeField]
+    Slider pointSpeed, mouse;
+
     #region Properties
     public float Tollerance
     {
@@ -61,9 +64,25 @@ public class GameManager : MonoBehaviour
             _bezierResolution = value;
         }
     }
+
+    public SplinesCreation CurveA
+    {
+        get
+        {
+            return curveA;
+        }
+    }
+
+    public SplinesCreation CurveB
+    {
+        get
+        {
+            return curveB;
+        }
+    }
     #endregion
 
-   
+
 
     private void OnEnable()
     {
@@ -77,6 +96,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        pointMovementSpeed = pointSpeed.value;
+        mouseSensibility = (int) mouse.value;
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -125,7 +146,6 @@ public class GameManager : MonoBehaviour
             Cursor.visible = false;
 
             gameInfo = sceneInfo.GetInfo().gameInfo;
-            gameInfo.ShowKnotsValue();
 
             curveA = sceneInfo.GetInfo().CurveA;
             curveB = sceneInfo.GetInfo().CurveB;

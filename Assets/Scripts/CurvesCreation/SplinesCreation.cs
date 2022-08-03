@@ -18,8 +18,6 @@ public class SplinesCreation : MonoBehaviour
     [SerializeField]
     List<Transform> controlPoints = new List<Transform>();
     [SerializeField]
-    int multiplicity = 2;
-    [SerializeField]
     float quantization = 0.1f;
     GameManager gameManager;
     [SerializeField]
@@ -28,6 +26,7 @@ public class SplinesCreation : MonoBehaviour
 
     #region public var
     public KnotsVector knots;
+    public int multiplicity = 2;
     #endregion 
 
     #region Unity methods
@@ -47,14 +46,14 @@ public class SplinesCreation : MonoBehaviour
             }
             else if (i >= knotsNum - (multiplicity)) //Estremo destro vettore nodi
             {
-                knots.Add(knotsNum);
+                knots.Add(knotsNum);       
             }
             else
             {
                 knots.Add(i);
-                n = i;
             }
         }
+       
        
         for (float t = knots.nodes[0]; t < knots.nodes[knots.nodes.Count - 1]; t += quantization)
         {

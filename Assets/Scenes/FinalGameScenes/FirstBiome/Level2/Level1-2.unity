@@ -181,6 +181,11 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 3318628765846891116, guid: e9f46cfe6db7ad641941420d30a18616, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e9f46cfe6db7ad641941420d30a18616, type: 3}
+--- !u!20 &172082962 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7588418066702139470, guid: e9f46cfe6db7ad641941420d30a18616, type: 3}
+  m_PrefabInstance: {fileID: 172082961}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &243216544
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -709,10 +714,14 @@ PrefabInstance:
       propertyPath: curve
       value: 
       objectReference: {fileID: 1369026759}
+    - target: {fileID: 5448748018611816646, guid: c2e46f3d773f28e4e9568b1dc7b052a0, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5448748018611816647, guid: c2e46f3d773f28e4e9568b1dc7b052a0, type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 2026498793}
+      objectReference: {fileID: 172082962}
     - target: {fileID: 5448748018611816696, guid: c2e46f3d773f28e4e9568b1dc7b052a0, type: 3}
       propertyPath: m_Name
       value: InfoPanel
@@ -839,28 +848,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57e189e40d996f24c92061bf5243d103, type: 3}
---- !u!1 &791630613 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9141834199178919786, guid: e9f46cfe6db7ad641941420d30a18616, type: 3}
-  m_PrefabInstance: {fileID: 172082961}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &791630614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 791630613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2b1c66eecf113f4eb8001c45519c0c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rayLenght: 90
-  mask:
-    serializedVersion: 2
-    m_Bits: 128
-  cam: {fileID: 2026498793}
 --- !u!1001 &916745184
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2152,48 +2139,6 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 0af4c0ffa64da2c4dbf72894e31a2401, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9f6baf0a09d1e94abb5408c30a53e2a, type: 3}
---- !u!1 &2026498789 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9141834199198121893, guid: e9f46cfe6db7ad641941420d30a18616, type: 3}
-  m_PrefabInstance: {fileID: 172082961}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2026498790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2026498789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_Version: 2
---- !u!20 &2026498793 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 9141834199198121896, guid: e9f46cfe6db7ad641941420d30a18616, type: 3}
-  m_PrefabInstance: {fileID: 172082961}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2026545012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2366,7 +2311,7 @@ PrefabInstance:
     - target: {fileID: 4714021395997277519, guid: 3623da7f507908a4e83ec95d11bf7cfc, type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 2026498793}
+      objectReference: {fileID: 172082962}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3623da7f507908a4e83ec95d11bf7cfc, type: 3}
 --- !u!1 &2067278620

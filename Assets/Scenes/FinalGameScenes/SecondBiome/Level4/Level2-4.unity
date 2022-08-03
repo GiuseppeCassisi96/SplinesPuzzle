@@ -819,7 +819,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5448748019098583831, guid: c2e46f3d773f28e4e9568b1dc7b052a0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.008210747
+      value: -0.021672344
       objectReference: {fileID: 0}
     - target: {fileID: 5448748019519831827, guid: c2e46f3d773f28e4e9568b1dc7b052a0, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1523,7 +1523,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: e9f46cfe6db7ad641941420d30a18616, type: 3}
 --- !u!20 &1600056823 stripped
 Camera:
-  m_CorrespondingSourceObject: {fileID: 9141834199198121896, guid: e9f46cfe6db7ad641941420d30a18616, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7588418066702139470, guid: e9f46cfe6db7ad641941420d30a18616, type: 3}
   m_PrefabInstance: {fileID: 1600056822}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1650772323 stripped
