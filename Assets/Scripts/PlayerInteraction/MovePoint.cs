@@ -14,8 +14,6 @@ public class MovePoint : MonoBehaviour
     int pointID;
     ChangePointColor _pointColor;
 
-    [SerializeField]
-    float speed = 4.0f;
 
 
     private void Awake()
@@ -77,15 +75,14 @@ public class MovePoint : MonoBehaviour
     {
         if(Input.GetMouseButton(0))
         {
-            if (!_gameManager.ControlPointEval(_tr, _pointInfo.desiredPosition, _gameManager.tollerance))
+            if (!_gameManager.ControlPointEval(_tr, _pointInfo.desiredPosition, _gameManager.Tollerance))
             {
-                _tr.Translate((Vector3.right * _gameManager.xAxeMouse * speed +
-                Vector3.up * _gameManager.yAxeMouse * speed) * Time.deltaTime * _gameManager.pointMovementSpeed);
+                _tr.Translate((Vector3.right * _gameManager.xAxeMouse +
+                Vector3.up * _gameManager.yAxeMouse) * Time.deltaTime * _gameManager.pointMovementSpeed);
                 _gameManager.isInteractionWithCurve = true;
                 _pointInfo.isMoving = true;
                 PlayerMove._isLook = true;
                 EventManager.LookAction(_tr);
-                Debug.Log("Move");
             }
             else
             {

@@ -11,7 +11,7 @@ public class PlayerMove : MonoBehaviour
     GameManager _gameManager;
     int _jumpCount = 2;
     Ray ray;
-    float _rotationX;
+    float _rotationX, _rotationY;
     Vector3 checkerScale;
     
 
@@ -42,10 +42,10 @@ public class PlayerMove : MonoBehaviour
     private void Awake()
     {
         _tr = GetComponent<Transform>();
-        _cameraTransform = transform.Find("Main Camera");
+        _cameraTransform = transform.Find("Camera");
         _playerBody = GetComponent<Rigidbody>();
         ray = new Ray(_tr.position, -_tr.up * 1.5f);
-        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         checkerScale = new Vector3(0.5f, 0.5f, 0.5f);
     }
 
@@ -70,22 +70,30 @@ public class PlayerMove : MonoBehaviour
             _jumpCount = 2;
         }
 
-        //Rotation
-        if(!_isLook)
+       if(_gameManager.mouseIsLock)
         {
-            _tr.Rotate(Vector3.up * _gameManager.xAxeMouse * _gameManager.mouseSensibility * Time.deltaTime);
-            _rotationX += Vector3.right.x * -_gameManager.yAxeMouse * _gameManager.mouseSensibility * Time.deltaTime;
-            _rotationX = Mathf.Clamp(_rotationX, -90, 80);
-            _cameraTransform.localRotation = Quaternion.Euler(_rotationX, 0, 0);
+            //Rotation
+            if (!_isLook)
+            {
+                _rotationY += Vector3.up.y * _gameManager.xAxeMouse * _gameManager.mouseSensibility * Time.deltaTime;
+                _rotationX += Vector3.right.x * (-_gameManager.yAxeMouse) * _gameManager.mouseSensibility * Time.deltaTime;
+                _rotationX = Mathf.Clamp(_rotationX, -90, 80);
+                _cameraTransform.localRotation = Quaternion.Euler(_rotationX, 0, 0);
+                _tr.localRotation = Quaternion.Euler(0, _rotationY, 0);
+            }
+            else
+            {
+                _rotationY = _cameraTransform.rotation.eulerAngles.y - 360;
+                _rotationX = _cameraTransform.rotation.eulerAngles.x - 360;
+                _rotationX = Mathf.Clamp(_rotationX, -90, 80);
+            }
         }
-        else
-        {
-            Debug.Log("falso");
-        }
+        
     }
 
     void LookPoint(Transform tr)
     {
         _cameraTransform.LookAt(tr, Vector3.up);
     }
+
 }

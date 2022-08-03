@@ -18,10 +18,7 @@ public class SplinesCreation : MonoBehaviour
     [SerializeField]
     List<Transform> controlPoints = new List<Transform>();
     [SerializeField]
-    int multiplicity = 2;
-    [SerializeField]
     float quantization = 0.1f;
-    [SerializeField]
     GameManager gameManager;
     [SerializeField]
     int cuttingIndex = 20;
@@ -29,11 +26,13 @@ public class SplinesCreation : MonoBehaviour
 
     #region public var
     public KnotsVector knots;
+    public int multiplicity = 2;
     #endregion 
 
     #region Unity methods
     private void Awake()
     {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         knots = new KnotsVector();
         int knotsNum = controlPoints.Count + GameManager.SPLINE_GRADE + 1;
         int n = 0;
@@ -47,14 +46,14 @@ public class SplinesCreation : MonoBehaviour
             }
             else if (i >= knotsNum - (multiplicity)) //Estremo destro vettore nodi
             {
-                knots.Add(knotsNum);
+                knots.Add(knotsNum);       
             }
             else
             {
                 knots.Add(i);
-                n = i;
             }
         }
+       
        
         for (float t = knots.nodes[0]; t < knots.nodes[knots.nodes.Count - 1]; t += quantization)
         {
@@ -119,7 +118,8 @@ public class SplinesCreation : MonoBehaviour
             positions.Add(tempVector);
         }
         _line.positionCount = positions.Count;
-        if(knots.multiplicityDict[knots.nodes[0]] < GameManager.SPLINE_GRADE + 1)
+        //Post processing
+        if (knots.multiplicityDict[knots.nodes[0]] < GameManager.SPLINE_GRADE + 1)
         {
             for (int i = 0; i < cuttingIndex; i++)
             {
@@ -134,7 +134,7 @@ public class SplinesCreation : MonoBehaviour
                 positions[i] = positions[positions.Count - cuttingIndex];
             }
         }
-        //Post processing
+        
         
             
         _line.SetPositions(positions.ToArray());

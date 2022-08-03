@@ -4,26 +4,31 @@ using UnityEngine;
 using UnityEngine.UI;
 public class ShowGameInfo : MonoBehaviour
 {
-    [SerializeField]
-    SplinesCreation curve;
+    SplinesCreation curveA, curveB;
     [SerializeField]
     Text infoText;
+    GameManager gameManager;
 
     private void Start()
     {
         infoText.text = infoText.text + "Knots value:\n";
-        for (int i = 0; i < curve.knots.nodes.Count; i++)
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        curveA = gameManager.CurveA;
+        curveB = gameManager.CurveB;
+        for (int i = 0; i < curveA.knots.nodes.Count; i++)
         {
-            infoText.text = infoText.text + curve.knots.nodes[i] + " ";
+            infoText.text = infoText.text + curveA.knots.nodes[i] + " ";
         }
+        infoText.text = infoText.text + "\n";
+        infoText.text = infoText.text + "multiplicity curveB: " + curveB.multiplicity;
     }
 
     public void ShowKnotsValue()
     {
         infoText.text = infoText.text + "Knots value:\n";
-        for(int i = 0; i < curve.knots.nodes.Count; i++)
+        for(int i = 0; i < curveA.knots.nodes.Count; i++)
         {
-            infoText.text = infoText.text + curve.knots.nodes[i] + " ";
+            infoText.text = infoText.text + curveA.knots.nodes[i] + " ";
         }
         infoText.text = infoText.text + "\n";
     }

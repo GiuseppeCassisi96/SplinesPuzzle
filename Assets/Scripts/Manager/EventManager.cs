@@ -10,6 +10,24 @@ public class EventManager : MonoBehaviour
     public static event Action<Transform> LookEvent;
     public static event Action<AudioClip> playSoundEvent;
     public static event Action<AudioClip> playSoundSFXEvent;
+    public static EventManager instance = null;
+
+    public void Singleton()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    private void Awake()
+    {
+        Singleton();
+    }
 
     public static void EnterAction(int triggerId)
     {

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8312084592221940928}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,16 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ecce99fed5c28c41a26af09049570ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portal: {fileID: 0}
-  curveA: {fileID: 0}
-  curveB: {fileID: 0}
-  gameInfo: {fileID: 0}
-  CURVE_RESOLUTION: 50
+  _bezierResolution: 50
   xAxeMouse: 0
   yAxeMouse: 0
-  pointMovementSpeed: 8
-  tollerance: 0.2
-  numberOfPoints: 3
+  pointMovementSpeed: 4
   mouseIsLock: 1
-  pointIsMoving: 0
+  isInteractionWithCurve: 0
   KnotsValueIsEquals: 0
+  mouseSensibility: 60
