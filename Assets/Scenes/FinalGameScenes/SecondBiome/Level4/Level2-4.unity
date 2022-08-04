@@ -819,7 +819,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5448748019098583831, guid: c2e46f3d773f28e4e9568b1dc7b052a0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.024838492
+      value: -0.024388274
       objectReference: {fileID: 0}
     - target: {fileID: 5448748019519831827, guid: c2e46f3d773f28e4e9568b1dc7b052a0, type: 3}
       propertyPath: m_AnchorMax.y
@@ -952,10 +952,6 @@ PrefabInstance:
     - target: {fileID: 2622253467330720882, guid: 58b2816119c3b544295de51be256448b, type: 3}
       propertyPath: m_Name
       value: EvilTower
-      objectReference: {fileID: 0}
-    - target: {fileID: 2622253467330720882, guid: 58b2816119c3b544295de51be256448b, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2622253467330720894, guid: 58b2816119c3b544295de51be256448b, type: 3}
       propertyPath: m_RootOrder

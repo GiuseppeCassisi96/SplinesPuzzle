@@ -298,6 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 831f547f656dc0043b64197802f56479, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameUI: {fileID: 6701375865021759929}
 --- !u!1 &3419250369899395332
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,6 +523,7 @@ MonoBehaviour:
   hideSection: {fileID: 5642722396871484136}
   viewSection: {fileID: 1337230279094917952}
   UI_Clip: {fileID: 8300000, guid: 54d35043866e9a94c8291e5a39149108, type: 3}
+  gameManager: {fileID: 0}
 --- !u!1 &5642722396871484136
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,7 +764,7 @@ GameObject:
   - component: {fileID: 4093784651795450126}
   - component: {fileID: 5393532978715342086}
   - component: {fileID: 4043579303858826567}
-  - component: {fileID: 2963335895911216235}
+  - component: {fileID: 8160758104122271133}
   m_Layer: 5
   m_Name: GoToMenu
   m_TagString: Untagged
@@ -872,9 +874,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2963335895911216235}
-        m_TargetAssemblyTypeName: ChangeLevel, Assembly-CSharp
-        m_MethodName: Change
+      - m_Target: {fileID: 8160758104122271133}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: ChangeScene
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -884,7 +886,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &2963335895911216235
+      - m_Target: {fileID: 8160758104122271133}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: HideAndView
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8160758104122271133
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -893,10 +907,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7412199176716367513}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee930210d4226d04988a423240876b25, type: 3}
+  m_Script: {fileID: 11500000, guid: 515dc2ce538c30b44869986057558e82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: 0
+  hideSection: {fileID: 2627274378428713862}
+  viewSection: {fileID: 6701375865021759929}
+  UI_Clip: {fileID: 8300000, guid: 54d35043866e9a94c8291e5a39149108, type: 3}
+  gameManager: {fileID: 0}
 --- !u!1 &8940546230809833324
 GameObject:
   m_ObjectHideFlags: 0
