@@ -21,11 +21,13 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneIndex);
         EventManager.PlaySoundSFXAction(UI_Clip);
+        Time.timeScale = 1;
     }
 
     public void ChangeScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
         EventManager.PlaySoundSFXAction(UI_Clip);
+        Time.timeScale = 1;
     }
 }

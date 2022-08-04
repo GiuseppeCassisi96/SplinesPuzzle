@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static int SPLINE_GRADE = 3;
+    static GameManager instance = null;
 
     #region private var
     int numberOfPoints = 3;
@@ -98,10 +99,12 @@ public class GameManager : MonoBehaviour
     {
         pointMovementSpeed = pointSpeed.value;
         mouseSensibility = (int) mouse.value;
-        DontDestroyOnLoad(this.gameObject);
     }
 
-  
+    private void Start()
+    {
+        Singleton();
+    }
 
     private void Update()
     {
@@ -272,5 +275,13 @@ public class GameManager : MonoBehaviour
         pointMovementSpeed = (int)slider.value;
     }
 
-
+    void Singleton()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            return;
+        }
+        Destroy(this.gameObject);
+    }
 }

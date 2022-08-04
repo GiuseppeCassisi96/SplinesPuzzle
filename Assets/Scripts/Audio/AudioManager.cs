@@ -11,12 +11,19 @@ public class AudioManager : MonoBehaviour
     bool isSFX = false;
     [SerializeField]
     Slider slider;
+    static AudioManager SFXinstance = null;
+    static AudioManager Backgroundinstance = null;
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
-        DontDestroyOnLoad(this.gameObject);
         _audioSource.volume = slider.value;
     }
+
+    private void Start()
+    {
+        Singleton();
+    }
+
     private void OnEnable()
     {
         EventManager.playSoundEvent += PlayBackgroundSound;
@@ -50,6 +57,30 @@ public class AudioManager : MonoBehaviour
         if(isSFX)
         {
             _audioSource.PlayOneShot(clip);
+        }
+        
+    }
+
+    void Singleton()
+    {
+
+        if(isSFX)
+        {
+            if (SFXinstance == null)
+            {
+                SFXinstance = this;
+                return;
+            }
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            if (Backgroundinstance == null)
+            {
+                Backgroundinstance = this;
+                return;
+            }
+            Destroy(this.gameObject);
         }
         
     }
