@@ -19,7 +19,8 @@ public class ShowGameInfo : MonoBehaviour
         {
             infoText.text = infoText.text + curveA.knots.nodes[i] + " ";
         }
-        infoText.text = infoText.text + "\n";
+        infoText.text = infoText.text + "\n\n";
+        infoText.text = infoText.text + "multiplicity curveA: " + curveA.multiplicity + "\n";
         infoText.text = infoText.text + "multiplicity curveB: " + curveB.multiplicity;
     }
 
@@ -30,7 +31,7 @@ public class ShowGameInfo : MonoBehaviour
         {
             infoText.text = infoText.text + curveA.knots.nodes[i] + " ";
         }
-        infoText.text = infoText.text + "\n";
+        infoText.text = infoText.text + "\n\n";
     }
 
     public void ValueNotValid()

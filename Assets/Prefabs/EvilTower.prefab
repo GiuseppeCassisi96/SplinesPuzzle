@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2622253467330720895}
   - component: {fileID: 2622253467330720880}
   - component: {fileID: 2622253467330720881}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EvilTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
