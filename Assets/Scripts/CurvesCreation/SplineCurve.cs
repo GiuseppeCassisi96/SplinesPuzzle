@@ -18,6 +18,7 @@ public class SplineCurve : MonoBehaviour
     GameManager _gameManager;
     int _resolutionOfCurve;
     List<float> _nodesVector;
+    Dictionary<int, int> _indexNodeToIndexPoint;
     #endregion
 
     #region serialize field var
@@ -35,6 +36,14 @@ public class SplineCurve : MonoBehaviour
         get
         {
             return _nodesVector;
+        }
+    }
+
+    public Dictionary<int, int> IndexNodeToIndexPoint
+    {
+        get
+        {
+            return _indexNodeToIndexPoint;
         }
     }
     #endregion
@@ -73,6 +82,7 @@ public class SplineCurve : MonoBehaviour
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _resolutionOfCurve = _gameManager.CurveResolution;
         _lineRenderer = GetComponent<LineRenderer>();
+        _indexNodeToIndexPoint = new Dictionary<int, int>();
         FillNodesVector();
         int nodeIndex = 1;
         int pointIndex = 2;
@@ -81,17 +91,21 @@ public class SplineCurve : MonoBehaviour
             if (nodeIndex - 1 < 0 || nodeIndex + 1 > _nodesVector.Count - 1)
             {
                 break;
+                
             }
-            if((pointIndex % 2 == 0) && (pointIndex != 0 && pointIndex != Points.Count - 1))
+            if((pointIndex % 2 != 0) && (pointIndex == 0 && pointIndex == Points.Count - 1))
             {
                 break;
+                
             }
             float interpolationValue = SimpleRapport(nodeIndex);
-            Debug.Log(interpolationValue);
             PlaceJunctionPoint(pointIndex, interpolationValue);
+            _indexNodeToIndexPoint.Add(nodeIndex, pointIndex);
+            
             nodeIndex++;
             pointIndex = pointIndex + 2;
         }
+
         _positions = new Vector3[_resolutionOfCurve];
         _lineRenderer.positionCount = _resolutionOfCurve * NUM_CURVES;
         DrawQuadratic();
