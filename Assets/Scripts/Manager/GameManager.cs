@@ -12,12 +12,12 @@ public class GameManager : MonoBehaviour
     #region private var
     int numberOfPoints = 3;
     SceneInfo sceneInfo;
-    SplinesCreation curveA, curveB;
+    SplineCurve curveA, curveB;
     GameObject portal;
     AudioClip backgroundClip, levelUnlock;
     ShowGameInfo gameInfo;
     float _tollerance = 0.2f;
-    public int _bezierResolution = 50;
+    int _curveResolution = 50;
     #endregion
 
     #region public var
@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     Slider pointSpeed, mouse;
+    
 
     #region Properties
     public float Tollerance
@@ -53,20 +54,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public int BezierResolution
+    public int CurveResolution
     {
         get
         {
-            return _bezierResolution;
+            return _curveResolution;
         }
 
         set
         {
-            _bezierResolution = value;
+            _curveResolution = value;
         }
     }
 
-    public SplinesCreation CurveA
+    public SplineCurve CurveA
     {
         get
         {
@@ -74,7 +75,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public SplinesCreation CurveB
+    public SplineCurve CurveB
     {
         get
         {
@@ -168,7 +169,7 @@ public class GameManager : MonoBehaviour
             backgroundClip = sceneInfo.GetInfo().backgroundMusic;
             levelUnlock = sceneInfo.GetInfo().levelUnlock;
 
-            BezierResolution = sceneInfo.GetInfo().bezierResolution;
+            CurveResolution = sceneInfo.GetInfo().bezierResolution;
         }
         EventManager.PlaySoundAction(backgroundClip);
     }
@@ -192,53 +193,53 @@ public class GameManager : MonoBehaviour
 
     public void ChangeKnotsValue(int index, float value)
     {
-        if(value < 0)
-        {
-            return;
-        }
+        //if(value < 0)
+        //{
+        //    return;
+        //}
 
 
-        if((index > 0) && (index < curveA.knots.nodes.Count - 1))
-        {
-            if ((value >= curveA.knots.nodes[index - 1])
-            && (value <= curveA.knots.nodes[index + 1]))
-            {
-                curveA.knots.Substituite(value, index);
-                isInteractionWithCurve = true;
-                gameInfo.ShowKnotsValue();
-            }
-            else
-            {
-                gameInfo.ValueNotValid();
-            }
-        }
-        else if(index == 0)
-        {
-            if (value <= curveA.knots.nodes[index + 1])
-            {
-                curveA.knots.Substituite(value, index);
-                isInteractionWithCurve = true;
-                gameInfo.ShowKnotsValue();
-            }
-            else
-            {
-                gameInfo.ValueNotValid();
-            }
-        }
-        else if (index == curveA.knots.nodes.Count - 1)
-        {
-            if (value >= curveA.knots.nodes[index - 1])
-            {
-                curveA.knots.Substituite(value, index);
-                isInteractionWithCurve = true;
-                gameInfo.ShowKnotsValue();
-            }
-            else
-            {
-                gameInfo.ValueNotValid();
-            }
-        }
-        ControlKnotsValue();
+        //if((index > 0) && (index < curveA.knots.nodes.Count - 1))
+        //{
+        //    if ((value >= curveA.knots.nodes[index - 1])
+        //    && (value <= curveA.knots.nodes[index + 1]))
+        //    {
+        //        curveA.knots.Substituite(value, index);
+        //        isInteractionWithCurve = true;
+        //        gameInfo.ShowKnotsValue();
+        //    }
+        //    else
+        //    {
+        //        gameInfo.ValueNotValid();
+        //    }
+        //}
+        //else if(index == 0)
+        //{
+        //    if (value <= curveA.knots.nodes[index + 1])
+        //    {
+        //        curveA.knots.Substituite(value, index);
+        //        isInteractionWithCurve = true;
+        //        gameInfo.ShowKnotsValue();
+        //    }
+        //    else
+        //    {
+        //        gameInfo.ValueNotValid();
+        //    }
+        //}
+        //else if (index == curveA.knots.nodes.Count - 1)
+        //{
+        //    if (value >= curveA.knots.nodes[index - 1])
+        //    {
+        //        curveA.knots.Substituite(value, index);
+        //        isInteractionWithCurve = true;
+        //        gameInfo.ShowKnotsValue();
+        //    }
+        //    else
+        //    {
+        //        gameInfo.ValueNotValid();
+        //    }
+        //}
+        //ControlKnotsValue();
         
     }
 
@@ -253,15 +254,16 @@ public class GameManager : MonoBehaviour
 
     bool ControlKnotsValue()
     {
-        int lenght = curveA.knots.nodes.Count;
-        bool mulEval = (curveA.knots.multiplicityDict[curveA.knots.nodes[0]] == curveB.knots.multiplicityDict[curveB.knots.nodes[0]]) &&
-            (curveA.knots.multiplicityDict[curveA.knots.nodes[lenght - 1]] == curveB.knots.multiplicityDict[curveB.knots.nodes[lenght - 1]]);
-        bool valueEval = (curveA.knots.nodes[0] == curveB.knots.nodes[0]) && (curveA.knots.nodes[lenght - 1] == curveB.knots.nodes[lenght - 1]);
-        if (mulEval && valueEval)
-        {  
-            AddingPoint();
-            return true;
-        }
+        //int lenght = curveA.knots.nodes.Count;
+        //bool mulEval = (curveA.knots.multiplicityDict[curveA.knots.nodes[0]] == curveB.knots.multiplicityDict[curveB.knots.nodes[0]]) &&
+        //    (curveA.knots.multiplicityDict[curveA.knots.nodes[lenght - 1]] == curveB.knots.multiplicityDict[curveB.knots.nodes[lenght - 1]]);
+        //bool valueEval = (curveA.knots.nodes[0] == curveB.knots.nodes[0]) && (curveA.knots.nodes[lenght - 1] == curveB.knots.nodes[lenght - 1]);
+        //if (mulEval && valueEval)
+        //{  
+        //    AddingPoint();
+        //    return true;
+        //}
+        //return false;
         return false;
     }
 

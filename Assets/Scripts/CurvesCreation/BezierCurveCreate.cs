@@ -26,7 +26,7 @@ public class BezierCurveCreate : MonoBehaviour
     private void Awake()
     {
         _line = GetComponent<LineRenderer>();
-        _curveResolution = GameObject.Find("GameManager").GetComponent<GameManager>().BezierResolution;
+        _curveResolution = GameObject.Find("GameManager").GetComponent<GameManager>().CurveResolution;
         positions = new Vector3[_curveResolution];
         _line.positionCount = _curveResolution;
         if(bezierType == BezierType.Cubic)

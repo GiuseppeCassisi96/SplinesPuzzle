@@ -16,7 +16,7 @@ public class SceneInfo : MonoBehaviour
     [Serializable]
     public struct Info
     {
-        public SplinesCreation CurveA, CurveB;
+        public SplineCurve CurveA, CurveB;
         public int pointsToWin;
         public AudioClip backgroundMusic, levelUnlock;
         public LevelType levelType;

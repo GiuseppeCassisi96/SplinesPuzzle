@@ -1,126 +1,130 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public class WrapperList
+{
+    public List<Transform> pointsOfBezierCurve;
+}
+
 public class SplineCurve : MonoBehaviour
 {
-    #region SerializeField var
-    [SerializeField]
-    int splineOrder = 4;
-    [SerializeField]
-    List<Transform> controlsPoint = new List<Transform>();
-    [SerializeField]
-    float quantization = 0.1f;
+    #region private var
+    LineRenderer _lineRenderer;
+    const int NUM_CURVES = 2;
+    Vector3[] _positions;
+    GameManager _gameManager;
+    int _resolutionOfCurve;
+    List<float> _nodesVector;
     #endregion
 
-    #region private var
-    List<float> _tParam = new List<float>();
-    int _pointNumber;
-    int weightSum;
-    List<float> _knots = new List<float>();
-    LineRenderer _line;
-    Vector3[] _positions;
+    #region serialize field var
+    [SerializeField]
+    List<WrapperList> bezierCurves;
     #endregion
+
+    #region public var
+    public List<Transform> Points;
+    #endregion
+
+    #region Properties
+    public List<float> NodesVector
+    {
+        get
+        {
+            return _nodesVector;
+        }
+    }
+    #endregion
+
+    void FillNodesVector()
+    {
+        _nodesVector = new List<float>();
+        _nodesVector.Add(0);
+        for(int i = 1; i <= NUM_CURVES; i++)
+        {
+            float tempValue = _nodesVector[i - 1] + UnityEngine.Random.Range(0.01f, 0.99f);
+            _nodesVector.Add(tempValue);
+        }
+    }
+
+    float SimpleRapport(int index)
+    {
+        int begin = index - 1;
+        int end = index + 1;
+        /*{A, C, B} = 1/c 
+         * 
+         * (B - A)
+         * -------
+         * (C - A)
+         */
+        return (_nodesVector[index] - _nodesVector[begin]) / (_nodesVector[end] - _nodesVector[begin]);
+    }
+
+    void PlaceJunctionPoint(int index, float interpolationValue)
+    {
+        Points[index].position = Vector3.Lerp(Points[index - 1].position, Points[index + 1].position, interpolationValue);
+    }
 
     private void Awake()
     {
-        _pointNumber = controlsPoint.Count;
-        UniformParameterization();
-        KnotsFill();
-        _line = GetComponent<LineRenderer>();
-        _positions = new Vector3[_tParam.Count];
-        _line.positionCount = _positions.Length;
-        DrawSpline();
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _resolutionOfCurve = _gameManager.CurveResolution;
+        _lineRenderer = GetComponent<LineRenderer>();
+        FillNodesVector();
+        int nodeIndex = 1;
+        int pointIndex = 2;
+        while(true)
+        {
+            if (nodeIndex - 1 < 0 || nodeIndex + 1 > _nodesVector.Count - 1)
+            {
+                break;
+            }
+            if((pointIndex % 2 == 0) && (pointIndex != 0 && pointIndex != Points.Count - 1))
+            {
+                break;
+            }
+            float interpolationValue = SimpleRapport(nodeIndex);
+            Debug.Log(interpolationValue);
+            PlaceJunctionPoint(pointIndex, interpolationValue);
+            nodeIndex++;
+            pointIndex = pointIndex + 2;
+        }
+        _positions = new Vector3[_resolutionOfCurve];
+        _lineRenderer.positionCount = _resolutionOfCurve * NUM_CURVES;
+        DrawQuadratic();
+
     }
 
     private void Update()
     {
-        
+        if (_gameManager.isInteractionWithCurve)
+            DrawQuadratic();
     }
 
-    void UniformParameterization()
+    void DrawQuadratic()
     {
-        for(float i = 0.0f; i <= 1; i = i + quantization)
+        for (int j = 0; j < bezierCurves.Count; j++)
         {
-            _tParam.Add(i);
-        }
-    }
-
-    void KnotsFill()
-    {
-        //Impongo molteplicità massima nei nodi agli estremi per far passare la spline nel primo punto
-        for(int i = 1; i <= splineOrder; i++)
-        {
-            _knots.Add(0);
-        }
-
-        int j = 3;
-        for(int i = splineOrder + 1;  i <= splineOrder + weightSum; i++)
-        {
-            _knots.Add(_tParam[j]);
-            j++;
-        }
-
-        for(int i = splineOrder + weightSum + 1; i <= (weightSum + 2) * splineOrder; i++)
-        {
-            _knots.Add(1);
-        }
-    }
-
-    int Bisection(float z)
-    {
-        var l = splineOrder;
-        var u = splineOrder + weightSum + 1;
-        while ((u - l) > 1)
-        {
-            var mid = (l + u) / 2;
-            if (z < _knots[mid])
-                u = mid;
-            else
-                l = mid;
-        }
-        return l;
-    }
-
-
-    Vector3 DeBoor(float t)
-    {
-        int l;
-        float[] cx = new float[splineOrder + 1];
-        float[] cy = new float[splineOrder + 1];
-        l = Bisection(t);
-        for(int i = 1; i <= splineOrder; i++)
-        {
-            cx[i] = controlsPoint[i + l - splineOrder - 1].position.x;
-            cy[i] = controlsPoint[i + l - splineOrder - 1].position.y;
-        }
-
-        for (int j = 2; j <= splineOrder; j++)
-        {
-            for (int i = splineOrder; i >= j; i--)
+            float t = 0.0f;
+            for (int i = 0; i < _resolutionOfCurve; i++)
             {
-                float denom = _knots[i + l - j + 1] - _knots[i + l - splineOrder];
-                float  a1 = (t - _knots[i + l - splineOrder]) / denom;
-                float a2 = 1 - a1; 
-                cx[i] = a1 * cx[i] + a2 * cx[i - 1];
-                cy[i] = a1 * cy[i] + a2 * cy[i - 1];
+                t = i / (float)_resolutionOfCurve;
+                _positions[i] = QuadraticBezierCurve(t, 
+                    bezierCurves[j].pointsOfBezierCurve[0].position,
+                    bezierCurves[j].pointsOfBezierCurve[1].position,
+                    bezierCurves[j].pointsOfBezierCurve[2].position);
+                _lineRenderer.SetPosition((j * _resolutionOfCurve) + i, _positions[i]);
             }
+            
         }
-
-        var res = new Vector3(cx[splineOrder], cy[splineOrder], 0);
-        return res;
     }
 
-    void DrawSpline()
+    public Vector3 QuadraticBezierCurve(float t, Vector3 p0, Vector3 p1, Vector3 p2)
     {
-        Vector3 tempVector = Vector3.zero;
-        for (int i = 0; i < _tParam.Count; i++)
-        {
-            tempVector = Vector3.zero;
-            tempVector = DeBoor(_tParam[i]);
-            _positions[i] = tempVector; 
-        }
-
-        _line.SetPositions(_positions);
+        return (Mathf.Pow(1 - t, 2) * p0) + (2 * (1 - t) * t * p1) + (Mathf.Pow(t, 2) * p2);
     }
+
 }
