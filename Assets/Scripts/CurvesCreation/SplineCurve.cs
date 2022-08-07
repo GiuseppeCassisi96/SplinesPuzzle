@@ -6,14 +6,14 @@ using UnityEngine;
 [Serializable]
 public class WrapperList
 {
-    public List<Transform> pointsOfBezierCurve;
+    public List<PointInfo> pointsOfBezierCurve;
 }
 
 public class SplineCurve : MonoBehaviour
 {
     #region private var
     LineRenderer _lineRenderer;
-    const int NUM_CURVES = 2;
+    
     Vector3[] _positions;
     GameManager _gameManager;
     int _resolutionOfCurve;
@@ -24,10 +24,12 @@ public class SplineCurve : MonoBehaviour
     #region serialize field var
     [SerializeField]
     List<WrapperList> bezierCurves;
+    [SerializeField]
+    int num_curves = 2;
     #endregion
 
     #region public var
-    public List<Transform> Points;
+    public List<PointInfo> Points;
     #endregion
 
     #region Properties
@@ -52,11 +54,13 @@ public class SplineCurve : MonoBehaviour
     {
         _nodesVector = new List<float>();
         _nodesVector.Add(0);
-        for(int i = 1; i <= NUM_CURVES; i++)
+        for(int i = 1; i <= num_curves; i++)
         {
             float tempValue = _nodesVector[i - 1] + UnityEngine.Random.Range(0.01f, 0.99f);
             _nodesVector.Add(tempValue);
         }
+
+        Debug.Log("U0: " + _nodesVector[0] + " U1: " + _nodesVector[1] + " U2: " + _nodesVector[2]);
     }
 
     float SimpleRapport(int index)
@@ -74,7 +78,89 @@ public class SplineCurve : MonoBehaviour
 
     void PlaceJunctionPoint(int index, float interpolationValue)
     {
-        Points[index].position = Vector3.Lerp(Points[index - 1].position, Points[index + 1].position, interpolationValue);
+        Points[index].pointTransform.position = Vector3.Lerp(Points[index - 1].pointTransform.position, 
+            Points[index + 1].pointTransform.position, interpolationValue);
+       bool isInside = _gameManager.ControlPointEval(Points[index].pointTransform, 
+           Points[index].desiredPosition, _gameManager.Tollerance);
+        if (isInside)
+            _gameManager.AddingPoint();
+    }
+
+    public void ChangeKnotsValue(int index, float value)
+    {
+        if (index  < 0 || index > _nodesVector.Count - 1)
+        {
+            throw new Exception("Index not valid");
+
+        }
+        if (index == NodesVector.Count - 1)
+        {
+            if(value <= NodesVector[index-1])
+            {
+                throw new Exception("Value not valid");
+            }
+            else
+            {
+                NodesVector[index] = value;
+                int nodeIndex = index - 1;
+                int pointIndex = IndexNodeToIndexPoint[nodeIndex];
+                float interpolationValue = SimpleRapport(nodeIndex);
+                PlaceJunctionPoint(pointIndex, interpolationValue);
+            }
+        }
+        else if(index == 0)
+        {
+            if (value >= NodesVector[0])
+            {
+                throw new Exception("Value not valid");
+            }
+            else
+            {
+                NodesVector[index] = value;
+                int nodeIndex = index + 1;
+                int pointIndex = IndexNodeToIndexPoint[nodeIndex];
+                float interpolationValue = SimpleRapport(nodeIndex);
+                PlaceJunctionPoint(pointIndex, interpolationValue);
+            }
+        }
+        else
+        {
+            if(value <= NodesVector[index-1] || value >= NodesVector[index + 1])
+            {
+                throw new Exception("Value not valid");
+            }
+            else
+            {
+                NodesVector[index] = value;
+                int nodeIndex = index;
+                int pointIndex = IndexNodeToIndexPoint[nodeIndex];
+                float interpolationValue = SimpleRapport(nodeIndex);
+                PlaceJunctionPoint(pointIndex, interpolationValue);
+            }
+        }
+    }
+
+    public void ReplaceJunction()
+    {
+        int nodeIndex = 1;
+        int pointIndex = 2;
+        while (true)
+        {
+            if (nodeIndex - 1 < 0 || nodeIndex + 1 > _nodesVector.Count - 1)
+            {
+                break;
+
+            }
+            if ((pointIndex % 2 != 0) && (pointIndex == 0 && pointIndex == Points.Count - 1))
+            {
+                break;
+
+            }
+            float interpolationValue = SimpleRapport(nodeIndex);
+            PlaceJunctionPoint(pointIndex, interpolationValue);
+            nodeIndex++;
+            pointIndex = pointIndex + 2;
+        }
     }
 
     private void Awake()
@@ -107,7 +193,7 @@ public class SplineCurve : MonoBehaviour
         }
 
         _positions = new Vector3[_resolutionOfCurve];
-        _lineRenderer.positionCount = _resolutionOfCurve * NUM_CURVES;
+        _lineRenderer.positionCount = _resolutionOfCurve * num_curves;
         DrawQuadratic();
 
     }
@@ -115,10 +201,14 @@ public class SplineCurve : MonoBehaviour
     private void Update()
     {
         if (_gameManager.isInteractionWithCurve)
+        {
             DrawQuadratic();
+            Debug.Log("DrawSpline");
+        }
+            
     }
 
-    void DrawQuadratic()
+    public void DrawQuadratic()
     {
         for (int j = 0; j < bezierCurves.Count; j++)
         {
@@ -127,9 +217,9 @@ public class SplineCurve : MonoBehaviour
             {
                 t = i / (float)_resolutionOfCurve;
                 _positions[i] = QuadraticBezierCurve(t, 
-                    bezierCurves[j].pointsOfBezierCurve[0].position,
-                    bezierCurves[j].pointsOfBezierCurve[1].position,
-                    bezierCurves[j].pointsOfBezierCurve[2].position);
+                    bezierCurves[j].pointsOfBezierCurve[0].pointTransform.position,
+                    bezierCurves[j].pointsOfBezierCurve[1].pointTransform.position,
+                    bezierCurves[j].pointsOfBezierCurve[2].pointTransform.position);
                 _lineRenderer.SetPosition((j * _resolutionOfCurve) + i, _positions[i]);
             }
             

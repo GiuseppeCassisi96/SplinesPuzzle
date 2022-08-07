@@ -122,8 +122,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39d28410662aca449a94fe6150b0b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mySpline: {fileID: 0}
+  pointTransform: {fileID: 4568143616723160408}
   desiredPosition: {x: 0, y: 0, z: 0}
   isMoving: 0
+  isJunctionPoint: 0
 --- !u!114 &4568143616723160422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,8 +262,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39d28410662aca449a94fe6150b0b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mySpline: {fileID: 0}
+  pointTransform: {fileID: 4568143617279324613}
   desiredPosition: {x: 0, y: 0, z: 0}
   isMoving: 0
+  isJunctionPoint: 0
 --- !u!114 &4568143617279324611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,8 +402,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39d28410662aca449a94fe6150b0b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mySpline: {fileID: 0}
+  pointTransform: {fileID: 4568143617364550400}
   desiredPosition: {x: 0, y: 0, z: 0}
   isMoving: 0
+  isJunctionPoint: 0
 --- !u!114 &4568143617364550414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -423,8 +432,10 @@ GameObject:
   - component: {fileID: 4568143617882395172}
   - component: {fileID: 4568143617882395175}
   - component: {fileID: 4568143617882395174}
+  - component: {fileID: 5395000109641550372}
+  - component: {fileID: 4052543602604601774}
   m_Layer: 0
-  m_Name: P2
+  m_Name: JP2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -507,6 +518,36 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &5395000109641550372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4568143617882395161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d39d28410662aca449a94fe6150b0b14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mySpline: {fileID: 0}
+  pointTransform: {fileID: 4568143617882395173}
+  desiredPosition: {x: 0, y: 0, z: 0}
+  isMoving: 0
+  isJunctionPoint: 1
+--- !u!114 &4052543602604601774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4568143617882395161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8e64fa1fb798f46befa94221d163e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &4568143617926696266
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,8 +670,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39d28410662aca449a94fe6150b0b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mySpline: {fileID: 0}
+  pointTransform: {fileID: 4568143617926696278}
   desiredPosition: {x: 0, y: 0, z: 0}
   isMoving: 0
+  isJunctionPoint: 0
 --- !u!114 &4568143617926696276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -693,21 +737,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6572f0468ebec894bb94c04e58b0569a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Points:
-  - {fileID: 4568143617926696278}
-  - {fileID: 4568143617364550400}
-  - {fileID: 4568143617882395173}
-  - {fileID: 4568143617279324613}
-  - {fileID: 4568143616723160408}
   bezierCurves:
   - pointsOfBezierCurve:
-    - {fileID: 4568143617926696278}
-    - {fileID: 4568143617364550400}
-    - {fileID: 4568143617882395173}
+    - {fileID: 4568143617926696277}
+    - {fileID: 4568143617364550415}
+    - {fileID: 5395000109641550372}
   - pointsOfBezierCurve:
-    - {fileID: 4568143617882395173}
-    - {fileID: 4568143617279324613}
-    - {fileID: 4568143616723160408}
+    - {fileID: 5395000109641550372}
+    - {fileID: 4568143617279324608}
+    - {fileID: 4568143616723160423}
+  num_curves: 2
+  Points:
+  - {fileID: 4568143617926696277}
+  - {fileID: 4568143617364550415}
+  - {fileID: 5395000109641550372}
+  - {fileID: 4568143617279324608}
+  - {fileID: 4568143616723160423}
 --- !u!120 &4568143618087460820
 LineRenderer:
   m_ObjectHideFlags: 0

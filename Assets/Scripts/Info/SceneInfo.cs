@@ -17,11 +17,13 @@ public class SceneInfo : MonoBehaviour
     public struct Info
     {
         public SplineCurve CurveA, CurveB;
-        public int pointsToWin;
+        public int pointsToWin, pointsToUnlockPanels;
         public AudioClip backgroundMusic, levelUnlock;
         public LevelType levelType;
         public ShowGameInfo gameInfo;
         public GameObject portal;
+        public GameObject interactionPanel;
+        public GameObject infoPanel;
         public float tollerance;
         [Range(5, 100)]
         public int bezierResolution;
