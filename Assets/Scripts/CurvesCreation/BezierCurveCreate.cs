@@ -26,7 +26,7 @@ public class BezierCurveCreate : MonoBehaviour
     private void Awake()
     {
         _line = GetComponent<LineRenderer>();
-        _curveResolution = GameObject.Find("GameManager").GetComponent<GameManager>().BezierResolution;
+        _curveResolution = GameObject.Find("GameManager").GetComponent<GameManager>().CurveResolution;
         positions = new Vector3[_curveResolution];
         _line.positionCount = _curveResolution;
         if(bezierType == BezierType.Cubic)
@@ -44,12 +44,28 @@ public class BezierCurveCreate : MonoBehaviour
     {
         drawFunction.Invoke();
     }
-
+    /// <summary>
+    /// Computes the quadratic Bezier curve using De Casteljau's algorithm
+    /// </summary>
+    /// <param name="t"> The parameter used to evaluate the curve </param>
+    /// <param name="p0"> First control point </param>
+    /// <param name="p1"> Second contol point </param>
+    /// <param name="p2"> Third control point </param>
+    /// <returns> Returns a position based on 't' parameter and on his three control points </returns>
     public Vector3 QuadraticBezierCurve(float t, Vector3 p0, Vector3 p1, Vector3 p2)
     {
         return (Mathf.Pow(1 - t, 2) * p0) + (2 * (1-t)*t*p1) + (Mathf.Pow(t,2) * p2);
     }
 
+    /// <summary>
+    /// Computes the cubic Bezier curve using De Casteljau's algorithm
+    /// </summary>
+    /// <param name="t"> The parameter used to evaluate the curve </param>
+    /// <param name="p0"> First control point </param>
+    /// <param name="p1"> Second contol point </param>
+    /// <param name="p2"> Third control point </param>
+    /// <param name="p3"> Fourth control point </param>
+    /// <returns> Returns a position based on 't' parameter and on his three control points </returns>
     public Vector3 CubicBezierCurve(float t, Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3)
     {
         return (Mathf.Pow(1 - t, 3) * p0) + (3 * t * Mathf.Pow(1 - t, 2) * p1)

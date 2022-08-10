@@ -45,7 +45,7 @@ public class MovePoint : MonoBehaviour
             if (!_isInsideTheInterval)
             {
                 InteractionDrag();
-                _colorManager.SetColor(_renderer, _pointColor.pointColor);
+                _colorManager.SetColor(_renderer, _pointColor.PointColor);
 
             }
             else
@@ -59,7 +59,7 @@ public class MovePoint : MonoBehaviour
     {
         if (pointID == triggerID)
         {
-            PlayerMove._isLook = false;
+            PlayerMove.IsLook = false;
             if (!_isInsideTheInterval)
             {
                 _colorManager.SetColor(_renderer, Color.white);
@@ -75,20 +75,20 @@ public class MovePoint : MonoBehaviour
     {
         if(Input.GetMouseButton(0))
         {
-            if (!_gameManager.ControlPointEval(_tr, _pointInfo.desiredPosition, _gameManager.Tollerance))
+            if (!_gameManager.GMControlPointEval(_tr, _pointInfo.DesiredPosition, _gameManager.Tollerance))
             {
                 _tr.Translate((Vector3.right * _gameManager.xAxeMouse +
                 Vector3.up * _gameManager.yAxeMouse) * Time.deltaTime * _gameManager.pointMovementSpeed);
                 _gameManager.isInteractionWithCurve = true;
-                _pointInfo.isMoving = true;
-                PlayerMove._isLook = true;
+                _pointInfo.IsMoving = true;
+                PlayerMove.IsLook = true;
                 EventManager.LookAction(_tr);
             }
             else
             {
-                PlayerMove._isLook = false;
+                PlayerMove.IsLook = false;
                 _gameManager.isInteractionWithCurve = false;
-                _pointInfo.isMoving = false;
+                _pointInfo.IsMoving = false;
                 _colorManager.SetColor(_renderer, Color.green);
                 _isInsideTheInterval = true;
                 _gameManager.AddingPoint();
@@ -96,9 +96,9 @@ public class MovePoint : MonoBehaviour
         }
         else
         {
-            PlayerMove._isLook = false;
+            PlayerMove.IsLook = false;
             _gameManager.isInteractionWithCurve = false;
-            _pointInfo.isMoving = false;
+            _pointInfo.IsMoving = false;
         }
         
     }

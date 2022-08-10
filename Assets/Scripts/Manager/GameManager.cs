@@ -6,18 +6,18 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public static int SPLINE_GRADE = 3;
     static GameManager instance = null;
 
     #region private var
-    int numberOfPoints = 3;
+    int numberOfPoints = 0, pointsToUnlockPanels = 0;
     SceneInfo sceneInfo;
-    SplinesCreation curveA, curveB;
+    SplineCurve curveA, curveB;
     GameObject portal;
     AudioClip backgroundClip, levelUnlock;
     ShowGameInfo gameInfo;
     float _tollerance = 0.2f;
-    public int _bezierResolution = 50;
+    int _curveResolution = 50;
+    WaitForSeconds _wait;
     #endregion
 
     #region public var
@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     Slider pointSpeed, mouse;
+    
 
     #region Properties
     public float Tollerance
@@ -53,20 +54,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public int BezierResolution
+    public int CurveResolution
     {
         get
         {
-            return _bezierResolution;
+            return _curveResolution;
         }
 
         set
         {
-            _bezierResolution = value;
+            _curveResolution = value;
         }
     }
 
-    public SplinesCreation CurveA
+    public SplineCurve CurveA
     {
         get
         {
@@ -74,7 +75,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public SplinesCreation CurveB
+    public SplineCurve CurveB
     {
         get
         {
@@ -84,7 +85,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
 
-
+    #region unity methods
     private void OnEnable()
     {
         SceneManager.sceneLoaded += IsSceneLoaded;
@@ -104,6 +105,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Singleton();
+        _wait = new WaitForSeconds(0.200f);
     }
 
     private void Update()
@@ -115,7 +117,9 @@ public class GameManager : MonoBehaviour
         }
 
     }
+    #endregion
 
+    #region user define methods
     void MouseRotation()
     {
         xAxeMouse = Input.GetAxis("Mouse X");
@@ -126,17 +130,31 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Punto in più");
         numberOfPoints++;
+        pointsToUnlockPanels++;
         if(numberOfPoints == sceneInfo.GetInfo().pointsToWin)
         {
             portal.SetActive(true);
             EventManager.PlaySoundSFXAction(levelUnlock);
+            return;
+        }
+        if (sceneInfo.GetInfo().levelType == LevelType.Spline)
+        {
+            if(pointsToUnlockPanels == sceneInfo.GetInfo().pointsToUnlockPanels)
+            {
+                sceneInfo.GetInfo().infoPanel.SetActive(true);
+                sceneInfo.GetInfo().interactionPanel.SetActive(true);
+            }
+            CurveA.ReplaceJunction();
+            CurveA.DrawSpline();
         }
     }
 
     private void IsSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
         sceneInfo = GameObject.FindGameObjectWithTag("SceneInfo").GetComponent<SceneInfo>();
+        //reset the points for the new level
         numberOfPoints = 0;
+        pointsToUnlockPanels = 0;
         if (sceneInfo.GetInfo().levelType == LevelType.Menu)
         {
             Cursor.lockState = CursorLockMode.None;
@@ -168,13 +186,13 @@ public class GameManager : MonoBehaviour
             backgroundClip = sceneInfo.GetInfo().backgroundMusic;
             levelUnlock = sceneInfo.GetInfo().levelUnlock;
 
-            BezierResolution = sceneInfo.GetInfo().bezierResolution;
+            CurveResolution = sceneInfo.GetInfo().bezierResolution;
         }
         EventManager.PlaySoundAction(backgroundClip);
     }
 
 
-    void MouseLocks()
+    private void MouseLocks()
     {
         mouseIsLock = !mouseIsLock;
         if (mouseIsLock)
@@ -190,59 +208,23 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void ChangeKnotsValue(int index, float value)
+    public void GMChangeKnotsValue(int index, float value)
     {
-        if(value < 0)
+        try
         {
-            return;
+            curveA.ChangeKnotsValue(index, value);
+            gameInfo.ShowKnotsValue();
+            isInteractionWithCurve = true;
+            StartCoroutine(ResetInteractionAfterTime(_wait));
         }
-
-
-        if((index > 0) && (index < curveA.knots.nodes.Count - 1))
+        catch(System.Exception e)
         {
-            if ((value >= curveA.knots.nodes[index - 1])
-            && (value <= curveA.knots.nodes[index + 1]))
-            {
-                curveA.knots.Substituite(value, index);
-                isInteractionWithCurve = true;
-                gameInfo.ShowKnotsValue();
-            }
-            else
-            {
-                gameInfo.ValueNotValid();
-            }
+            gameInfo.ValueNotValid(e);
         }
-        else if(index == 0)
-        {
-            if (value <= curveA.knots.nodes[index + 1])
-            {
-                curveA.knots.Substituite(value, index);
-                isInteractionWithCurve = true;
-                gameInfo.ShowKnotsValue();
-            }
-            else
-            {
-                gameInfo.ValueNotValid();
-            }
-        }
-        else if (index == curveA.knots.nodes.Count - 1)
-        {
-            if (value >= curveA.knots.nodes[index - 1])
-            {
-                curveA.knots.Substituite(value, index);
-                isInteractionWithCurve = true;
-                gameInfo.ShowKnotsValue();
-            }
-            else
-            {
-                gameInfo.ValueNotValid();
-            }
-        }
-        ControlKnotsValue();
-        
+            
     }
 
-    public bool ControlPointEval(Transform tr, Vector3 desiredPosition, float offsetEval)
+    public bool GMControlPointEval(Transform tr, Vector3 desiredPosition, float offsetEval)
     {
         bool xSide = (tr.localPosition.x >= (desiredPosition.x - offsetEval)) &&
            (tr.localPosition.x <= (desiredPosition.x + offsetEval));
@@ -251,31 +233,18 @@ public class GameManager : MonoBehaviour
         return xSide && ySide;
     }
 
-    bool ControlKnotsValue()
-    {
-        int lenght = curveA.knots.nodes.Count;
-        bool mulEval = (curveA.knots.multiplicityDict[curveA.knots.nodes[0]] == curveB.knots.multiplicityDict[curveB.knots.nodes[0]]) &&
-            (curveA.knots.multiplicityDict[curveA.knots.nodes[lenght - 1]] == curveB.knots.multiplicityDict[curveB.knots.nodes[lenght - 1]]);
-        bool valueEval = (curveA.knots.nodes[0] == curveB.knots.nodes[0]) && (curveA.knots.nodes[lenght - 1] == curveB.knots.nodes[lenght - 1]);
-        if (mulEval && valueEval)
-        {  
-            AddingPoint();
-            return true;
-        }
-        return false;
-    }
 
-    public void ChangeMouseSensibility(Slider slider) 
+    public void GMChangeMouseSensibility(Slider slider) 
     {
         mouseSensibility = (int)slider.value;
     }
 
-    public void ChangePointSpeed(Slider slider)
+    public void GMChangePointSpeed(Slider slider)
     {
         pointMovementSpeed = (int)slider.value;
     }
 
-    void Singleton()
+    private void Singleton()
     {
         if (instance == null)
         {
@@ -284,4 +253,13 @@ public class GameManager : MonoBehaviour
         }
         Destroy(this.gameObject);
     }
+
+
+    private IEnumerator ResetInteractionAfterTime(WaitForSeconds wait)
+    {
+        yield return wait;
+        isInteractionWithCurve = false;
+        yield return null;
+    }
+    #endregion
 }
