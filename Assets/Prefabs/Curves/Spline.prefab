@@ -122,11 +122,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39d28410662aca449a94fe6150b0b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mySpline: {fileID: 0}
   pointTransform: {fileID: 4568143616723160408}
   desiredPosition: {x: 0, y: 0, z: 0}
-  isMoving: 0
   isJunctionPoint: 0
+  otherJunctionPoint: {fileID: 0}
 --- !u!114 &4568143616723160422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,11 +261,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39d28410662aca449a94fe6150b0b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mySpline: {fileID: 0}
   pointTransform: {fileID: 4568143617279324613}
   desiredPosition: {x: 0, y: 0, z: 0}
-  isMoving: 0
   isJunctionPoint: 0
+  otherJunctionPoint: {fileID: 0}
 --- !u!114 &4568143617279324611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,11 +400,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39d28410662aca449a94fe6150b0b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mySpline: {fileID: 0}
   pointTransform: {fileID: 4568143617364550400}
   desiredPosition: {x: 0, y: 0, z: 0}
-  isMoving: 0
   isJunctionPoint: 0
+  otherJunctionPoint: {fileID: 0}
 --- !u!114 &4568143617364550414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -530,11 +527,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39d28410662aca449a94fe6150b0b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mySpline: {fileID: 0}
   pointTransform: {fileID: 4568143617882395173}
   desiredPosition: {x: 0, y: 0, z: 0}
-  isMoving: 0
   isJunctionPoint: 1
+  otherJunctionPoint: {fileID: 0}
 --- !u!114 &4052543602604601774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -670,11 +666,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39d28410662aca449a94fe6150b0b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mySpline: {fileID: 0}
   pointTransform: {fileID: 4568143617926696278}
   desiredPosition: {x: 0, y: 0, z: 0}
-  isMoving: 0
   isJunctionPoint: 0
+  otherJunctionPoint: {fileID: 0}
 --- !u!114 &4568143617926696276
 MonoBehaviour:
   m_ObjectHideFlags: 0

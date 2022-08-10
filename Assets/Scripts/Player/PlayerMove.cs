@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    //private var
+    #region private var
     Transform _tr;
     Transform _cameraTransform;
     Rigidbody _playerBody;
@@ -13,20 +13,28 @@ public class PlayerMove : MonoBehaviour
     Ray ray;
     float _rotationX, _rotationY;
     Vector3 checkerScale;
-    
+    #endregion
 
 
-    //SerializeField var
+    #region SerializeField var
     [SerializeField]
-    float speed = 5.0f, jumpForce = 5.0f, rotationSpeed = 2.0f;
+    float speed = 5.0f, jumpForce = 5.0f;
     [SerializeField]
     LayerMask mask;
     [SerializeField]
     Transform checkereTr;
     [SerializeField]
     AudioClip jumpClip;
+    #endregion
 
-    public static bool _isLook = false;
+
+    static bool isLook = false;
+
+    public static bool IsLook
+    {
+        get { return isLook; }
+        set { isLook = value; }
+    }
 
     private void OnEnable()
     {
@@ -73,7 +81,7 @@ public class PlayerMove : MonoBehaviour
        if(_gameManager.mouseIsLock)
         {
             //Rotation
-            if (!_isLook)
+            if (!isLook)
             {
                 _rotationY += Vector3.up.y * _gameManager.xAxeMouse * _gameManager.mouseSensibility * Time.deltaTime;
                 _rotationX += Vector3.right.x * (-_gameManager.yAxeMouse) * _gameManager.mouseSensibility * Time.deltaTime;

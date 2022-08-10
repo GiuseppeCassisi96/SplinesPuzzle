@@ -844,7 +844,7 @@ PrefabInstance:
       objectReference: {fileID: 1011414993}
     - target: {fileID: 1337230280445733659, guid: 57e189e40d996f24c92061bf5243d103, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangePointSpeed
+      value: GMChangePointSpeed
       objectReference: {fileID: 0}
     - target: {fileID: 1337230280567750088, guid: 57e189e40d996f24c92061bf5243d103, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -860,7 +860,7 @@ PrefabInstance:
       objectReference: {fileID: 1011414993}
     - target: {fileID: 1337230280790963784, guid: 57e189e40d996f24c92061bf5243d103, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeMouseSensibility
+      value: GMChangeMouseSensibility
       objectReference: {fileID: 0}
     - target: {fileID: 3419250368352651329, guid: 57e189e40d996f24c92061bf5243d103, type: 3}
       propertyPath: m_Name
@@ -2585,9 +2585,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 1642769711}
     m_Modifications:
     - target: {fileID: 442822817092588173, guid: 49f60bfb0b5a35d4a97427017bf7e338, type: 3}
+      propertyPath: m_MaxValue
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 442822817092588173, guid: 49f60bfb0b5a35d4a97427017bf7e338, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1011414993}
+    - target: {fileID: 442822817092588173, guid: 49f60bfb0b5a35d4a97427017bf7e338, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GMChangeMouseSensibility
+      objectReference: {fileID: 0}
     - target: {fileID: 442822817146198285, guid: 49f60bfb0b5a35d4a97427017bf7e338, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2596,6 +2604,10 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1011414993}
+    - target: {fileID: 442822817282527198, guid: 49f60bfb0b5a35d4a97427017bf7e338, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GMChangePointSpeed
+      objectReference: {fileID: 0}
     - target: {fileID: 442822818587318776, guid: 49f60bfb0b5a35d4a97427017bf7e338, type: 3}
       propertyPath: viewSection
       value: 

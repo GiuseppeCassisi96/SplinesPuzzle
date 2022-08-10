@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
 
-
+    #region unity methods
     private void OnEnable()
     {
         SceneManager.sceneLoaded += IsSceneLoaded;
@@ -117,7 +117,9 @@ public class GameManager : MonoBehaviour
         }
 
     }
+    #endregion
 
+    #region user define methods
     void MouseRotation()
     {
         xAxeMouse = Input.GetAxis("Mouse X");
@@ -143,7 +145,7 @@ public class GameManager : MonoBehaviour
                 sceneInfo.GetInfo().interactionPanel.SetActive(true);
             }
             CurveA.ReplaceJunction();
-            CurveA.DrawQuadratic();
+            CurveA.DrawSpline();
         }
     }
 
@@ -190,7 +192,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    void MouseLocks()
+    private void MouseLocks()
     {
         mouseIsLock = !mouseIsLock;
         if (mouseIsLock)
@@ -206,7 +208,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void ChangeKnotsValue(int index, float value)
+    public void GMChangeKnotsValue(int index, float value)
     {
         try
         {
@@ -222,7 +224,7 @@ public class GameManager : MonoBehaviour
             
     }
 
-    public bool ControlPointEval(Transform tr, Vector3 desiredPosition, float offsetEval)
+    public bool GMControlPointEval(Transform tr, Vector3 desiredPosition, float offsetEval)
     {
         bool xSide = (tr.localPosition.x >= (desiredPosition.x - offsetEval)) &&
            (tr.localPosition.x <= (desiredPosition.x + offsetEval));
@@ -232,17 +234,17 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void ChangeMouseSensibility(Slider slider) 
+    public void GMChangeMouseSensibility(Slider slider) 
     {
         mouseSensibility = (int)slider.value;
     }
 
-    public void ChangePointSpeed(Slider slider)
+    public void GMChangePointSpeed(Slider slider)
     {
         pointMovementSpeed = (int)slider.value;
     }
 
-    void Singleton()
+    private void Singleton()
     {
         if (instance == null)
         {
@@ -253,10 +255,11 @@ public class GameManager : MonoBehaviour
     }
 
 
-    IEnumerator ResetInteractionAfterTime(WaitForSeconds wait)
+    private IEnumerator ResetInteractionAfterTime(WaitForSeconds wait)
     {
         yield return wait;
         isInteractionWithCurve = false;
         yield return null;
     }
+    #endregion
 }

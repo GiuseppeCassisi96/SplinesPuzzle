@@ -13,7 +13,6 @@ public class SplineCurve : MonoBehaviour
 {
     #region private var
     LineRenderer _lineRenderer;
-    
     Vector3[] _positions;
     GameManager _gameManager;
     int _resolutionOfCurve;
@@ -26,9 +25,7 @@ public class SplineCurve : MonoBehaviour
     List<WrapperList> bezierCurves;
     [SerializeField]
     int num_curves = 2;
-    #endregion
-
-    #region public var
+    [SerializeField]
     public List<PointInfo> Points;
     #endregion
 
@@ -49,11 +46,16 @@ public class SplineCurve : MonoBehaviour
         }
     }
     #endregion
+    #region user define methods
 
+    /// <summary>
+    /// Fills the nodes vector, every node's value is composed by adding the value 
+    /// of the previous node with a random offset 
+    /// </summary>
     void FillNodesVector()
     {
         _nodesVector = new List<float>();
-        _nodesVector.Add(0);
+        _nodesVector.Add(UnityEngine.Random.Range(0.01f, 0.99f));
         for(int i = 1; i <= num_curves; i++)
         {
             float tempValue = _nodesVector[i - 1] + UnityEngine.Random.Range(0.01f, 0.99f);
@@ -63,41 +65,61 @@ public class SplineCurve : MonoBehaviour
         Debug.Log("U0: " + _nodesVector[0] + " U1: " + _nodesVector[1] + " U2: " + _nodesVector[2]);
     }
 
+    /// <summary>
+    /// Does the simple rapport between three nodes 
+    /// </summary>
+    /// <param name="index"> Is the index of the node which we want know the simple rapport </param>
+    /// <returns> return an interpolation value between 0 and 1 </returns>
     float SimpleRapport(int index)
     {
         int begin = index - 1;
         int end = index + 1;
-        /*{A, C, B} = 1/c 
+        /*{A, B, C} = interpolation value between 0 and 1 
          * 
          * (B - A)
-         * -------
+         * ------- = 1/c
          * (C - A)
          */
         return (_nodesVector[index] - _nodesVector[begin]) / (_nodesVector[end] - _nodesVector[begin]);
     }
 
+    /// <summary>
+    /// Places the junction point between the previous  one and the next one 
+    /// based on the interpolation value
+    /// </summary>
+    /// <param name="index"> Is the index of junction point </param>
+    /// <param name="interpolationValue"> Is the interpolation value used to place the 
+    /// junction point </param>
     void PlaceJunctionPoint(int index, float interpolationValue)
     {
-        Points[index].pointTransform.position = Vector3.Lerp(Points[index - 1].pointTransform.position, 
-            Points[index + 1].pointTransform.position, interpolationValue);
-       bool isInside = _gameManager.ControlPointEval(Points[index].pointTransform, 
-           Points[index].desiredPosition, _gameManager.Tollerance);
+        Points[index].PointTransform.position = Vector3.Lerp(Points[index - 1].PointTransform.position, 
+            Points[index + 1].PointTransform.position, interpolationValue);
+       bool isInside = _gameManager.GMControlPointEval(Points[index].PointTransform, 
+           Points[index].DesiredPosition, _gameManager.Tollerance);
         if (isInside)
             _gameManager.AddingPoint();
     }
 
+    /// <summary>
+    /// Changes the value of a node 
+    /// </summary>
+    /// <param name="index"> Is the index of node that we want change </param>
+    /// <param name="value"> Is the new value for the node </param>
+    /// <exception cref="IndexNotValid" cref="ValueNotValid"> Can we have an 'IndexNotValid' and a 
+    /// 'ValueNotValid' exception </exception>
     public void ChangeKnotsValue(int index, float value)
     {
         if (index  < 0 || index > _nodesVector.Count - 1)
         {
-            throw new Exception("Index not valid");
+            throw new IndexNotValid("Index not valid");
 
         }
+
         if (index == NodesVector.Count - 1)
         {
             if(value <= NodesVector[index-1])
             {
-                throw new Exception("Value not valid");
+                throw new ValueNotValid("Value not valid");
             }
             else
             {
@@ -110,9 +132,9 @@ public class SplineCurve : MonoBehaviour
         }
         else if(index == 0)
         {
-            if (value >= NodesVector[0])
+            if (value >= NodesVector[1])
             {
-                throw new Exception("Value not valid");
+                throw new ValueNotValid("Value not valid");
             }
             else
             {
@@ -127,7 +149,7 @@ public class SplineCurve : MonoBehaviour
         {
             if(value <= NodesVector[index-1] || value >= NodesVector[index + 1])
             {
-                throw new Exception("Value not valid");
+                throw new ValueNotValid("Value not valid");
             }
             else
             {
@@ -140,18 +162,21 @@ public class SplineCurve : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Updates the position of junction point
+    /// </summary>
     public void ReplaceJunction()
     {
         int nodeIndex = 1;
         int pointIndex = 2;
         while (true)
         {
-            if (nodeIndex - 1 < 0 || nodeIndex + 1 > _nodesVector.Count - 1)
+            if (nodeIndex + 1 > _nodesVector.Count - 1)
             {
                 break;
 
             }
-            if ((pointIndex % 2 != 0) && (pointIndex == 0 && pointIndex == Points.Count - 1))
+            if (pointIndex == Points.Count - 1)
             {
                 break;
 
@@ -162,7 +187,42 @@ public class SplineCurve : MonoBehaviour
             pointIndex = pointIndex + 2;
         }
     }
+    /// <summary>
+    /// Draws the Spline 
+    /// </summary>
+    public void DrawSpline()
+    {
+        for (int j = 0; j < bezierCurves.Count; j++)
+        {
+            float t = 0.0f;
+            for (int i = 0; i < _resolutionOfCurve; i++)
+            {
+                t = i / (float)_resolutionOfCurve;
+                _positions[i] = QuadraticBezierCurve(t,
+                    bezierCurves[j].pointsOfBezierCurve[0].PointTransform.position,
+                    bezierCurves[j].pointsOfBezierCurve[1].PointTransform.position,
+                    bezierCurves[j].pointsOfBezierCurve[2].PointTransform.position);
+                _lineRenderer.SetPosition((j * _resolutionOfCurve) + i, _positions[i]);
+            }
 
+        }
+    }
+    /// <summary>
+    /// Computes the quadratic Bezier curve using De Casteljau's algorithm
+    /// </summary>
+    /// <param name="t"> The parameter used to evaluate the curve </param>
+    /// <param name="p0"> First control point </param>
+    /// <param name="p1"> Second contol point </param>
+    /// <param name="p2"> Third control point </param>
+    /// <returns> Returns a position based on 't' parameter and on his three control points </returns>
+    public Vector3 QuadraticBezierCurve(float t, Vector3 p0, Vector3 p1, Vector3 p2)
+    {
+        return (Mathf.Pow(1 - t, 2) * p0) + (2 * (1 - t) * t * p1) + (Mathf.Pow(t, 2) * p2);
+    }
+
+    #endregion
+
+    #region unity methods
     private void Awake()
     {
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -174,12 +234,12 @@ public class SplineCurve : MonoBehaviour
         int pointIndex = 2;
         while(true)
         {
-            if (nodeIndex - 1 < 0 || nodeIndex + 1 > _nodesVector.Count - 1)
+            if (nodeIndex + 1 > _nodesVector.Count - 1)
             {
                 break;
                 
             }
-            if((pointIndex % 2 != 0) && (pointIndex == 0 && pointIndex == Points.Count - 1))
+            if(pointIndex == Points.Count - 1)
             {
                 break;
                 
@@ -194,7 +254,7 @@ public class SplineCurve : MonoBehaviour
 
         _positions = new Vector3[_resolutionOfCurve];
         _lineRenderer.positionCount = _resolutionOfCurve * num_curves;
-        DrawQuadratic();
+        DrawSpline();
 
     }
 
@@ -202,33 +262,12 @@ public class SplineCurve : MonoBehaviour
     {
         if (_gameManager.isInteractionWithCurve)
         {
-            DrawQuadratic();
+            DrawSpline();
             Debug.Log("DrawSpline");
         }
             
     }
+    #endregion
 
-    public void DrawQuadratic()
-    {
-        for (int j = 0; j < bezierCurves.Count; j++)
-        {
-            float t = 0.0f;
-            for (int i = 0; i < _resolutionOfCurve; i++)
-            {
-                t = i / (float)_resolutionOfCurve;
-                _positions[i] = QuadraticBezierCurve(t, 
-                    bezierCurves[j].pointsOfBezierCurve[0].pointTransform.position,
-                    bezierCurves[j].pointsOfBezierCurve[1].pointTransform.position,
-                    bezierCurves[j].pointsOfBezierCurve[2].pointTransform.position);
-                _lineRenderer.SetPosition((j * _resolutionOfCurve) + i, _positions[i]);
-            }
-            
-        }
-    }
-
-    public Vector3 QuadraticBezierCurve(float t, Vector3 p0, Vector3 p1, Vector3 p2)
-    {
-        return (Mathf.Pow(1 - t, 2) * p0) + (2 * (1 - t) * t * p1) + (Mathf.Pow(t, 2) * p2);
-    }
 
 }

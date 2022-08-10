@@ -148,7 +148,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 452047908}
   m_LocalRotation: {x: -0, y: -0.2072476, z: -0, w: 0.9782886}
-  m_LocalPosition: {x: 32.88, y: 1, z: 55.16}
+  m_LocalPosition: {x: 34.25, y: 1, z: 72.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 500428668}
@@ -165,8 +165,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 20.292467, y: 16.56888, z: 1.0000001}
-  m_Center: {x: 11.958607, y: 7.78444, z: 0.00000088010836}
+  m_Size: {x: 22.770363, y: 16.56888, z: 1.0000001}
+  m_Center: {x: 10.719659, y: 7.78444, z: 0.0000005083307}
 --- !u!1 &500428667
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,7 +227,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519391725}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 44.13, y: 1, z: 63.41}
+  m_LocalPosition: {x: 45.5, y: 1, z: 80.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 500428668}
@@ -758,8 +758,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 21.657345, y: 16.56888, z: 1.0000001}
-  m_Center: {x: 12.127559, y: 7.78444, z: -0.00000083446497}
+  m_Size: {x: 39.334988, y: 16.56888, z: 1.0000001}
+  m_Center: {x: 3.2887363, y: 7.78444, z: -0.000000834465}
 --- !u!1 &1020160230
 GameObject:
   m_ObjectHideFlags: 0
@@ -1154,8 +1154,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 17.17885, y: 16.56888, z: 1.0000001}
-  m_Center: {x: 13.515415, y: 7.78444, z: -0.0000008471747}
+  m_Size: {x: 29.38393, y: 16.56888, z: 1.0000001}
+  m_Center: {x: 7.412874, y: 7.78444, z: -0.000000834465}
 --- !u!1001 &1798688957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1433,7 +1433,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd8e64fa1fb798f46befa94221d163e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1876597449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1446,8 +1445,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39d28410662aca449a94fe6150b0b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointTransform: {fileID: 0}
   desiredPosition: {x: 13.11, y: 9.46, z: 0}
-  isMoving: 0
+  isJunctionPoint: 0
+  otherJunctionPoint: {fileID: 0}
 --- !u!114 &1876597450
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,6 +17,6 @@ public class ChangeKnotsValue : MonoBehaviour
 
     public void OnSendInput()
     {
-        gameManager.ChangeKnotsValue(int.Parse(indexField.text), float.Parse(valueField.text));
+        gameManager.GMChangeKnotsValue(int.Parse(indexField.text), float.Parse(valueField.text));
     }
 }
