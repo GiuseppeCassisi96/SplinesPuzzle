@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FinalGameScenes/SecondBiome/Level4/Level2-4.unity
     guid: 31fb362633c96cf44a481d4208d0b58c
+  - enabled: 1
+    path: Assets/Scenes/FinalGameScenes/FinalTimeScene.unity
+    guid: 2dcf54099521f3641925ccd72805ca73
   m_configObjects: {}

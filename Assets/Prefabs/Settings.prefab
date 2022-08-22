@@ -738,7 +738,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: SFX sound
+  m_Text: Effetti Sonori
 --- !u!1 &442822817386097658
 GameObject:
   m_ObjectHideFlags: 0
@@ -1681,7 +1681,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Music sound
+  m_Text: Musica
 --- !u!1 &442822818428943938
 GameObject:
   m_ObjectHideFlags: 0
@@ -1796,7 +1796,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Mouse Sensibility
+  m_Text: Sensibilita' mouse
 --- !u!1 &442822818538562817
 GameObject:
   m_ObjectHideFlags: 0
@@ -1989,7 +1989,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -220}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 210, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &442822818587318777
 CanvasRenderer:
@@ -2100,6 +2100,7 @@ MonoBehaviour:
   hideSection: {fileID: 442822818616606597}
   viewSection: {fileID: 0}
   UI_Clip: {fileID: 8300000, guid: 9be4582cee6d53147a3fdce0b6b0667e, type: 3}
+  gameManager: {fileID: 0}
 --- !u!1 &442822818616606597
 GameObject:
   m_ObjectHideFlags: 0
@@ -2734,4 +2735,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Point Speed
+  m_Text: Velocita' punto
