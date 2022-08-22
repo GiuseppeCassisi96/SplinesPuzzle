@@ -7,7 +7,7 @@ public class GameTimeLogic : MonoBehaviour
 {
 
     Text timeText;
-    int seconds = 1;
+    int seconds = 1, minute = 0, hours = 0;
     WaitForSeconds wait;
 
     public Text TimeText
@@ -19,6 +19,24 @@ public class GameTimeLogic : MonoBehaviour
     public int Seconds
     {
         set { seconds = value; }
+    }
+
+    public int Minutes
+    {
+        set
+        {
+            minute = value;
+        }
+
+    }
+
+    public int Hours
+    {
+        set
+        {
+            hours = value;
+        }
+
     }
 
     // Start is called before the first frame update
@@ -38,8 +56,18 @@ public class GameTimeLogic : MonoBehaviour
         while (true)
         {
             yield return wait;
-            timeText.text = seconds.ToString();
             seconds++;
+            if (seconds >= 60)
+            {
+                seconds = 0;
+                minute++;
+                if(minute >= 60)
+                {
+                    minute = 0;
+                    hours++;
+                }
+            }
+            timeText.text = hours.ToString() + ":"+ minute.ToString() + ":" + seconds.ToString();
         }
     }
 }

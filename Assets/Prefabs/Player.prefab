@@ -57,7 +57,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 4000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -197,7 +197,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpForce: 5
-  rotationSpeed: 90
   mask:
     serializedVersion: 2
     m_Bits: 64
@@ -232,8 +231,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9f8f8c794412a419fdcda51350ab50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inGameUI: {fileID: 0}
-  pauseUI: {fileID: 0}
 --- !u!1 &9141834199345434204
 GameObject:
   m_ObjectHideFlags: 0

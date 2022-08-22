@@ -958,6 +958,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2456245533504184614, guid: 57e189e40d996f24c92061bf5243d103, type: 3}
+      propertyPath: m_TagString
+      value: Time
+      objectReference: {fileID: 0}
     - target: {fileID: 2627274378428713862, guid: 57e189e40d996f24c92061bf5243d103, type: 3}
       propertyPath: m_IsActive
       value: 0

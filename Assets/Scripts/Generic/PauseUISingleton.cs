@@ -29,16 +29,20 @@ public class PauseUISingleton : MonoBehaviour
         {
             gameUI.SetActive(false);
             gameTimeLogic.SetActiveObj(true);
-            gameTimeLogic.TimeText.text = "0";
+            gameTimeLogic.TimeText.text = "0:0:0";
             gameTimeLogic.Seconds = 0;
+            gameTimeLogic.Minutes = 0;
+            gameTimeLogic.Hours = 0;
             gameTimeLogic.StopCoroutine("TimeAdvance");
         }
         else if(scene.buildIndex == 1)
         {
             gameUI.SetActive(true);
             gameTimeLogic.SetActiveObj(true);
-            gameTimeLogic.TimeText.text = "0";
+            gameTimeLogic.TimeText.text = "0:0:0";
             gameTimeLogic.Seconds = 0;
+            gameTimeLogic.Minutes = 0;
+            gameTimeLogic.Hours = 0;
             gameTimeLogic.StartCoroutine("TimeAdvance");
         }
     }

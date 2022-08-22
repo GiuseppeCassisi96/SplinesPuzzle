@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SceneInfo
   - GameManager
+  - Time
   layers:
   - Default
   - TransparentFX
