@@ -413,7 +413,7 @@ PrefabInstance:
     - target: {fileID: 9156864223995227879, guid: e9f6baf0a09d1e94abb5408c30a53e2a, type: 3}
       propertyPath: info.backgroundMusic
       value: 
-      objectReference: {fileID: 8300000, guid: 3ef76e8970f474f429073750dab2a322, type: 3}
+      objectReference: {fileID: 8300000, guid: 50b1d2aefce8ea04aa967f7a2b9254ca, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9f6baf0a09d1e94abb5408c30a53e2a, type: 3}
 --- !u!1001 &685029089
@@ -642,6 +642,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bbb91c8d96cb2446a07151ce95d1f0f, type: 3}
+--- !u!1 &769596943 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 1bbb91c8d96cb2446a07151ce95d1f0f, type: 3}
+  m_PrefabInstance: {fileID: 769596942}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &769596944
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769596943}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 9.502297, y: 9.918147, z: 8.857439}
+  m_Center: {x: 0, y: 0, z: 4.4292192}
 --- !u!1001 &803984963
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -805,7 +823,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9021939011406779867, guid: 20e4120219da4fa45a88846331e94614, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.96
+      value: 4.27
       objectReference: {fileID: 0}
     - target: {fileID: 9021939011406779867, guid: 20e4120219da4fa45a88846331e94614, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1608,7 +1626,7 @@ GameObject:
   - component: {fileID: 1989396324}
   - component: {fileID: 1989396323}
   - component: {fileID: 1989396322}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: INTerrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
