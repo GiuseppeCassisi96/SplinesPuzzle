@@ -351,8 +351,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Questo gioco \xE8 stato sviluppato per la materia \"Geometria Computazione\"
-    erogata dal docente Alzati Alberto\n\nUn ringraziamento speciale va a:\nProf.
+  m_Text: "Questo gioco \xE8 stato sviluppato per il corso \"Geometria Computazione\"
+    erogato dal docente Alzati Alberto\n\nUn ringraziamento speciale va a:\nProf.
     Alzati Alberto"
 --- !u!222 &312991638
 CanvasRenderer:
